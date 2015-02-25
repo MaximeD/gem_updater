@@ -20,7 +20,7 @@ module GemUpdater
     def changelog
       @changelog ||= begin
         puts "Looking for a changelog in #{@uri}"
-        doc = Nokogiri::HTML(open( @uri ) )
+        doc = Nokogiri::HTML( open( @uri ) )
 
         find_changelog( doc )
 
@@ -119,7 +119,7 @@ module GemUpdater
       # @param url [String] url of changelog
       # @return [String, nil] anchor's href
       def find_anchor( url )
-        changelog_page = Nokogiri::HTML(open( url ) )
+        changelog_page = Nokogiri::HTML( open( url ) )
         anchor = changelog_page.css( %(a.anchor) ).find{ |element| element.attr( 'href' ).match( @version.gsub('.', '') ) }
 
         if anchor
