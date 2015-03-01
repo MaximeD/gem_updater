@@ -12,13 +12,11 @@ module GemUpdater
     def update!
       @gemfile.update!
 
-      @gemfile.changes.each do |gem_name, _|
+      @gemfile.changes.each do |gem_name, details|
         source_uri  = GemUpdater::RubyGemsFetcher.new( gem_name ).source_uri
-        source_page = GemUpdater::SourcePageParser.new( source_uri )
+        source_page = GemUpdater::SourcePageParser.new( url: source_uri, version: details[ :versions ][ :new ] )
 
-        if source_page.changelog
-          @gemfile.changes[ gem_name ][ :changelog ] = "https://github.com#{source_page.changelog.attr( 'href' )}"
-        end
+        @gemfile.changes[ gem_name ][ :changelog ] = source_page.changelog if source_page.changelog
       end
 
       # Format the diff to get human readable information
