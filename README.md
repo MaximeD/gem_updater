@@ -26,6 +26,21 @@ gem_update
 <copy paste of output to commit message>
 ```
 
+### Diff format
+
+By default, diff for your gems will look like the following:
+
+```
+* gem_1 0.1 → 0.2
+[changelog](https://github.com/maintainer/gem_1/CHANGELOG.md#02)
+
+* gem_2 3.4.2 → 3.4.3
+[changelog](https://github.com/maintainer/gem_1/CHANGELOG.md#343)
+```
+
+You can change it if you like by writing you own template `.gem_updater_template.erb` in your home directory.
+[Look at default template](https://github.com/MaximeD/gem_updater/lib/gem_updater_template.erb) for an example on how to do it.
+
 ## Contributing
 
 PRs are always welcome!
