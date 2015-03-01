@@ -3,7 +3,12 @@ require 'open-uri'
 
 module GemUpdater
 
+  # SourcePageParser is responsible for parsing a source page where
+  # the gem code is hosted.
   class SourcePageParser
+
+    # @param url [String] url of page
+    # @param version [String] version of gem
     def initialize( url: nil, version: nil )
       @uri     = correct_uri( url )
       @version = version
@@ -40,7 +45,7 @@ module GemUpdater
 
     # Try to find where changelog might be.
     #
-    # @param url [String] the URL of changelog
+    # @param doc [Nokogiri::XML::Element] document of source page
     def find_changelog( doc )
       case @uri.host
       when 'github.com'
@@ -65,9 +70,13 @@ module GemUpdater
       %w( .md .rdoc ).include?( File.extname( file_name ) )
     end
 
+    # GitHubParser is responsible for parsing source code
+    # hosted on github.com.
     class GitHubParser < SourcePageParser
       BASE_URL = 'https://github.com'
 
+      # @param doc [Nokogiri::XML::Element] document of source page
+      # @param version [String] version of gem
       def initialize( doc, version )
         @doc     = doc
         @version = version
