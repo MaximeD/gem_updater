@@ -9,6 +9,10 @@ module GemUpdater
       @gemfile = GemUpdater::GemFile.new
     end
 
+    # Update process.
+    # This will:
+    #   1. update gemfile
+    #   2. find changelogs for updated gems
     def update!
       @gemfile.update!
 
