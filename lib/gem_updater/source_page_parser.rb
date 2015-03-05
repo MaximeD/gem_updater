@@ -58,7 +58,7 @@ module GemUpdater
     #
     # @return [Array] list of possible names
     def changelog_names
-      %w( CHANGELOG Changelog ChangeLog HISTORY History history )
+      %w( CHANGELOG Changelog ChangeLog changelog HISTORY History history )
     end
 
     # Some documents like the one written in markdown may contain
