@@ -4,3 +4,7 @@
 Signal.trap("INT") { exit 1 }
 
 require 'gem_updater'
+
+gems = GemUpdater::Updater.new
+gems.update!
+gems.format_diff

@@ -47,7 +47,3 @@ module GemUpdater
     end
   end
 end
-
-gems = GemUpdater::Updater.new
-gems.update!
-gems.format_diff
