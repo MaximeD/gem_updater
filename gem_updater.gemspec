@@ -14,5 +14,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json',      '~> 1.8'
   s.add_runtime_dependency 'nokogiri',  '~> 1.6'
 
+  s.add_development_dependency 'rspec'
+
   s.executables << 'gem_update'
 end
