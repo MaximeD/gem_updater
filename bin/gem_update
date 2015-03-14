@@ -7,4 +7,7 @@ require 'gem_updater'
 
 gems = GemUpdater::Updater.new
 gems.update!
+
+puts "\nHere are your changes:"
+puts '------------------------'
 gems.format_diff
