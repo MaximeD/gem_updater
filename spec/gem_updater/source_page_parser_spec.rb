@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 
 describe GemUpdater::SourcePageParser do
   subject { GemUpdater::SourcePageParser.new( url: 'https://github.com/fake_user/fake_gem', version: '0.2' ) }
