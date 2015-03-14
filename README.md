@@ -1,5 +1,8 @@
 # GemUpdater: update your gemfile and retrieve changelogs
 
+# DigestEmail
+[![BuildStatus](https://travis-ci.org/MaximeD/gem_updater.png)](https://travis-ci.org/MaximeD/gem_updater)
+
 Every week or so, you wish to update your `Gemfile`,
 to do so, you just have to launch `bundle update`.
 
@@ -19,6 +22,8 @@ All you have to do is to copy paste the output to the commit message, and you're
 Obviously, you still have to read changelogs and adapt your code though ;)
 
 ## Installation and usage
+
+**You must have ruby 2.0 or above to use it!**
 
 ```
 gem install gem_updater
