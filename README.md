@@ -1,6 +1,4 @@
 # GemUpdater: update your gemfile and retrieve changelogs
-
-# DigestEmail
 [![BuildStatus](https://travis-ci.org/MaximeD/gem_updater.png)](https://travis-ci.org/MaximeD/gem_updater)
 
 Every week or so, you wish to update your `Gemfile`,
