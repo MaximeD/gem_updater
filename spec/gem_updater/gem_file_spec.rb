@@ -3,6 +3,7 @@ require 'spec_helper'
 describe GemUpdater::GemFile do
   subject( :gemfile ) { GemUpdater::GemFile.new }
   let( :bundler_cli ){ OpenStruct.new( update: true, compute_changes: true ) }
+  let( :bundler_definition ) { OpenStruct.new( specs: {} ) }
 
   def old_gem_set
     Bundler::SpecSet.new( [
@@ -19,7 +20,8 @@ describe GemUpdater::GemFile do
   end
 
   before do
-    allow( Bundler.definition ).to receive( :specs ).and_return( old_gem_set )
+    allow( Bundler ).to receive( :definition ).and_return( bundler_definition )
+    allow( bundler_definition ).to receive( :specs ).and_return( old_gem_set )
     allow( Bundler::CLI ).to receive( :new ).and_return( bundler_cli )
     allow( bundler_cli ).to receive( :update )
   end
@@ -27,7 +29,7 @@ describe GemUpdater::GemFile do
   describe '#initialize' do
     before { subject }
     it 'gets current spec set' do
-      expect( Bundler.definition ).to have_received( :specs )
+      expect( bundler_definition ).to have_received( :specs )
     end
   end
 
