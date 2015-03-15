@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe GemUpdater::GemFile do
   subject( :gemfile ) { GemUpdater::GemFile.new }
-  let( :bundler_cli ){ OpenStruct.new( update: true, compute_changes: true ) }
   let( :bundler_definition ) { OpenStruct.new( specs: {} ) }
 
   def old_gem_set
@@ -22,8 +21,7 @@ describe GemUpdater::GemFile do
   before do
     allow( Bundler ).to receive( :definition ).and_return( bundler_definition )
     allow( bundler_definition ).to receive( :specs ).and_return( old_gem_set )
-    allow( Bundler::CLI ).to receive( :new ).and_return( bundler_cli )
-    allow( bundler_cli ).to receive( :update )
+    allow( Bundler::CLI ).to receive( :start )
   end
 
   describe '#initialize' do
@@ -40,7 +38,7 @@ describe GemUpdater::GemFile do
     end
 
     it 'launched bundle update' do
-      expect( bundler_cli ).to have_received( :update )
+      expect( Bundler::CLI ).to have_received( :start ).with( [ 'update' ] )
     end
 
     it 'computes changes' do
