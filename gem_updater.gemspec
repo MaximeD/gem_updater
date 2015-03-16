@@ -10,6 +10,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/MaximeD/gem_updater'
   s.license     = 'MIT'
 
+  s.required_ruby_version = '>= 2.0.0'
+
   s.add_runtime_dependency 'bundler',   '~> 1.7'
   s.add_runtime_dependency 'json',      '~> 1.8'
   s.add_runtime_dependency 'nokogiri',  '~> 1.6'
