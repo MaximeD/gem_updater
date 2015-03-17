@@ -1,5 +1,9 @@
+[![Version     ](https://img.shields.io/gem/v/gem_updater.svg?style=flat)](https://rubygems.org/gems/gem_updater)
+[![Build Status](https://img.shields.io/travis/MaximeD/gem_updater/master.svg?style=flat)](https://travis-ci.org/MaximeD/gem_updater)
+[![Code Climate](https://img.shields.io/codeclimate/github/MaximeD/gem_updater.svg?style=flat)](https://codeclimate.com/github/MaximeD/gem_updater)
+[![Inline docs ](http://inch-ci.org/github/MaximeD/gem_updater.svg?style=flat)](http://inch-ci.org/github/MaximeD/gem_updater)
+
 # GemUpdater: update your gemfile and retrieve changelogs
-[![BuildStatus](https://travis-ci.org/MaximeD/gem_updater.png)](https://travis-ci.org/MaximeD/gem_updater)
 
 Every week or so, you wish to update your `Gemfile`,
 to do so, you just have to launch `bundle update`.
