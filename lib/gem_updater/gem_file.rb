@@ -15,7 +15,7 @@ module GemUpdater
     # Then get new spec set.
     def update!
       puts "Updating gems..."
-      Bundler::CLI.new.update
+      Bundler::CLI.start( [ 'update' ] )
       @new_spec_set = Bundler.definition.specs
       compute_changes
     end
