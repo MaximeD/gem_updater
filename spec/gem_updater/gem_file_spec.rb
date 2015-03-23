@@ -2,33 +2,23 @@ require 'spec_helper'
 
 describe GemUpdater::GemFile do
   subject( :gemfile ) { GemUpdater::GemFile.new }
-  let( :bundler_definition ) { OpenStruct.new( specs: {} ) }
-
-  def old_gem_set
-    Bundler::SpecSet.new( [
-      Gem::Specification.new( 'gem_up_to_date', '0.1' ),
-      Gem::Specification.new( 'gem_to_update', '1.5' )
-    ] )
+  let( :old_spec_set ) do
+    [
+      Bundler::LazySpecification.new( 'gem_up_to_date', '0.1', 'ruby', 'gem_up_to_date_source' ),
+      Bundler::LazySpecification.new( 'gem_to_update', '1.5', 'ruby', 'gem_to_update_source' )
+    ]
   end
 
-  def new_gem_set
-    Bundler::SpecSet.new( [
-      Gem::Specification.new( 'gem_up_to_date', '0.1' ),
-      Gem::Specification.new( 'gem_to_update', '2.3' )
-    ] )
+  let( :new_spec_set ) do
+    [
+      Bundler::LazySpecification.new( 'gem_up_to_date', '0.1', 'ruby', 'gem_up_to_date_source' ),
+      Bundler::LazySpecification.new( 'gem_to_update', '2.3', 'ruby', 'gem_to_update_source' )
+    ]
   end
 
   before do
-    allow( Bundler ).to receive( :definition ).and_return( bundler_definition )
-    allow( bundler_definition ).to receive( :specs ).and_return( old_gem_set )
+    allow( Bundler ).to receive_message_chain( :locked_gems, :specs ) { old_spec_set }
     allow( Bundler::CLI ).to receive( :start )
-  end
-
-  describe '#initialize' do
-    before { subject }
-    it 'gets current spec set' do
-      expect( bundler_definition ).to have_received( :specs )
-    end
   end
 
   describe '#update!' do
@@ -37,25 +27,21 @@ describe GemUpdater::GemFile do
       subject.update!
     end
 
-    it 'launched bundle update' do
+    it 'launches bundle update' do
       expect( Bundler::CLI ).to have_received( :start ).with( [ 'update' ] )
-    end
-
-    it 'computes changes' do
-      expect( subject ).to have_received( :compute_changes )
-    end
-
-    it 'gets new spec set' do
-      expect( Bundler.definition ).to have_received( :specs ).twice
     end
   end
 
   describe '#compute_changes' do
     before :each do
-      subject
-      allow( Bundler.definition ).to receive( :specs ).and_return( new_gem_set )
-      subject.update!
+      allow( subject ).to receive( :get_spec_sets )
+      allow( subject ).to receive( :old_spec_set )  { old_spec_set }
+      allow( subject ).to receive( :new_spec_set )  { new_spec_set }
       subject.compute_changes
+    end
+
+    it 'gets specs sets' do
+      expect( subject ).to have_received( :get_spec_sets )
     end
 
     it 'skips gems that were not updated' do
@@ -63,7 +49,41 @@ describe GemUpdater::GemFile do
     end
 
     it 'includes updated gems with old and new version number' do
-      expect( subject.changes[ 'gem_to_update' ] ).to eq( versions: { old: '1.5', new: '2.3' } )
+      expect( subject.changes[ 'gem_to_update' ] ).to eq( versions: { old: '1.5', new: '2.3' }, source: 'gem_to_update_source' )
+    end
+  end
+
+
+  describe '#get_spec_sets' do
+    before :each do
+      allow( subject ).to receive( :reinitialize_spec_set! )
+      subject.send( :get_spec_sets )
+    end
+
+    it 'gets specs spet' do
+      expect( Bundler.locked_gems ).to have_received( :specs ).twice
+    end
+  end
+
+  describe '#spec_set' do
+    before :each do
+      subject.send( :spec_set )
+    end
+
+    it 'calls Bundler.locked_gems.specs' do
+      expect( Bundler ).to have_received( :locked_gems )
+      expect( Bundler.locked_gems ).to have_received( :specs )
+    end
+  end
+
+  describe '#reinitialize_spec_set!' do
+    before :each do
+      allow( Bundler ).to receive( :remove_instance_variable )
+      subject.send( :reinitialize_spec_set! )
+    end
+
+    it 'reinitializes locked gems' do
+      expect( Bundler ).to have_received( :remove_instance_variable ).with( "@locked_gems" )
     end
   end
 end
