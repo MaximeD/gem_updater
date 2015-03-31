@@ -38,7 +38,9 @@ module GemUpdater
     # @return [URI] valid URI
     def correct_uri( url )
       uri = URI( url )
-      uri.scheme = 'https' if uri.host == 'github.com' && uri.scheme == 'http'
+      if uri.host == 'github.com' && uri.scheme == 'http'
+        uri = URI url.gsub( %r((http)(://github.com)), '\1s\2' )
+      end
 
       uri
     end
