@@ -1,3 +1,8 @@
+# 0.1.1 (March 31, 2015)
+
+Fix:
+* redirections over https
+
 # 0.1.0 (March 19, 2015)
 
 Upgrade to support latest `bundler` version
