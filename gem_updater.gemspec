@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'gem_updater'
-  s.version     = '0.1.1'
-  s.date        = '2015-03-31'
+  s.version     = '0.2.0'
+  s.date        = '2015-04-06'
   s.summary     = "Update your gems and find their changelogs"
-  s.description = "It updates the gems of your Gemfile and fetches the links pointing to where their changelogs are"
+  s.description = "Updates the gems of your Gemfile and fetches the links pointing to where their changelogs are"
   s.authors     = [ "Maxime Demolin" ]
   s.email       = 'akbarova.armia@gmail.com'
   s.files       = Dir["{lib}/**/*"]
