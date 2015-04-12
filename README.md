@@ -33,6 +33,16 @@ gem_update
 <copy paste of output to commit message>
 ```
 
+If you prefer to, you can ask gem_update to commit straight away:
+
+```
+gem_update --commit
+```
+
+This will use the generated message as a commit message template, allowing you
+to edit before commit.
+
+
 ### Diff format
 
 By default, diff for your gems will look like the following:

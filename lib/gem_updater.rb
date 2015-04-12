@@ -31,11 +31,16 @@ module GemUpdater
       end
     end
 
+    # Print formatted diff
+    def output_diff
+      puts format_diff.join( "\n" )
+    end
+
     # Format the diff to get human readable information
     # on the gems that were updated.
     def format_diff
-      gemfile.changes.each do |gem, details|
-        puts ERB.new( template, nil, '<>' ).result( binding )
+      gemfile.changes.map do |gem, details|
+        ERB.new( template, nil, '<>' ).result( binding )
       end
     end
 

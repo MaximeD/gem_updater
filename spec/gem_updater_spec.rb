@@ -36,14 +36,14 @@ describe GemUpdater::Updater do
     end
   end
 
-  describe '#format_diff' do
+  describe '#output_diff' do
     before :each do
       allow( gemfile ).to receive( :changes ).and_return( {
         fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
         fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } }
       } )
       allow( STDOUT ).to receive( :puts )
-      subject.format_diff
+      subject.output_diff
     end
 
     it 'outputs changes' do
@@ -51,15 +51,29 @@ describe GemUpdater::Updater do
 * fake_gem_1 1.0 → 1.1
 [changelog](fake_gem_1_url)
 
-CHANGELOG
-      )
 
-      expect( STDOUT ).to have_received( :puts ).with( <<CHANGELOG
 * fake_gem_2 0.4 → 0.4.2
 [changelog](fake_gem_2_url)
 
 CHANGELOG
       )
+
+    end
+  end
+
+
+  describe '#format_diff' do
+    before :each do
+      allow( gemfile ).to receive( :changes ).and_return( {
+        fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
+        fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } }
+      } )
+    end
+
+    it 'contains changes' do
+      [ "* fake_gem_1 1.0 → 1.1\n[changelog](fake_gem_1_url)\n\n", "* fake_gem_2 0.4 → 0.4.2\n[changelog](fake_gem_2_url)\n\n" ].each do |msg|
+        expect( subject.format_diff ).to include msg
+      end
     end
   end
 
