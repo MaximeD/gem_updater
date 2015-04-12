@@ -9,19 +9,23 @@ require 'gem_updater'
 gems = GemUpdater::Updater.new
 gems.update!
 
-if ARGV.include? '--commit'
-  require 'tempfile'
-  file = Tempfile.new( 'gem_updater' )
-  file.write "UPDATE gems\n\n"
-  file.write gems.format_diff.join
-  file.close
+if gems.gemfile.changes.any?
+  if ARGV.include? '--commit'
+    require 'tempfile'
+    file = Tempfile.new( 'gem_updater' )
+    file.write "UPDATE gems\n\n"
+    file.write gems.format_diff.join
+    file.close
 
-  gemfile = Bundler.default_gemfile.to_s
+    gemfile = Bundler.default_gemfile.to_s
 
-  system %(git add #{gemfile} #{gemfile}.lock && git commit -t #{file.path} --allow-empty-message)
-  file.unlink
+    system %(git add #{gemfile} #{gemfile}.lock && git commit -t #{file.path} --allow-empty-message)
+    file.unlink
+  else
+    puts "\nHere are your changes:"
+    puts '------------------------'
+    gems.output_diff
+  end
 else
-  puts "\nHere are your changes:"
-  puts '------------------------'
-  gems.output_diff
+  puts "\nCongratulations, your Gemfile was already up-to-date!"
 end
