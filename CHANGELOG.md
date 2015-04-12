@@ -1,9 +1,21 @@
+# 0.3.0 (Apr 11, 2015)
+
+Add ability to auto commit the changes with option `--commit`.
+
+Features
+* auto commit (@oelmekki)
+* update message when gems were already up-to-date
+
+Fix:
+* fix redirections on github subdomains
+
+
 # 0.2.0 (Apr 06, 2015)
 
 Add support for other sources (like `rails-assets`).
 
 Fix:
-* Fix a bug when a gem has been removed from dependencies
+* fix a bug when a gem has been removed from dependencies
 
 
 # 0.1.1 (March 31, 2015)
