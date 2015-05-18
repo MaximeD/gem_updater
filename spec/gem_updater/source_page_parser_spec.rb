@@ -53,16 +53,28 @@ describe GemUpdater::SourcePageParser do
       end
 
       context 'when url is http' do
-        context 'when url host is github' do
-          it 'returns https version of it' do
-            expect( GemUpdater::SourcePageParser.new( url: 'http://github.com/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://github.com/fake_user/fake_gem' )
-          end
+        it 'returns https version of it' do
+          expect( GemUpdater::SourcePageParser.new( url: 'http://github.com/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://github.com/fake_user/fake_gem' )
+        end
 
-          context 'when url host is a subdomain of github' do
-            it 'returns https version of base domain' do
-              expect( GemUpdater::SourcePageParser.new( url: 'http://wiki.github.com/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://github.com/fake_user/fake_gem' )
-            end
+        context 'when url host is a subdomain' do
+          it 'returns https version of base domain' do
+            expect( GemUpdater::SourcePageParser.new( url: 'http://wiki.github.com/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://github.com/fake_user/fake_gem' )
           end
+        end
+      end
+    end
+
+    context 'when url is on bitbucket' do
+      context 'when url is https' do
+        it 'returns it' do
+          expect( GemUpdater::SourcePageParser.new( url: 'https://bitbucket.org/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://bitbucket.org/fake_user/fake_gem' )
+        end
+      end
+
+      context 'when url is http' do
+        it 'returns https version of it' do
+          expect( GemUpdater::SourcePageParser.new( url: 'http://bitbucket.org/fake_user/fake_gem', version: 1 ).instance_variable_get :@uri ).to eq URI( 'https://bitbucket.org/fake_user/fake_gem' )
         end
       end
     end
