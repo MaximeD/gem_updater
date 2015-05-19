@@ -1,3 +1,9 @@
+# 0.3.1 (May 19, 2015)
+
+Fix:
+* redirections over https for bitbucket
+
+
 # 0.3.0 (Apr 11, 2015)
 
 Add ability to auto commit the changes with option `--commit`.
