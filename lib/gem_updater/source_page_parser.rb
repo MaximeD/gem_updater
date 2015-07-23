@@ -26,6 +26,8 @@ module GemUpdater
 
       rescue OpenURI::HTTPError # Uri points to nothing
         puts "Cannot find #{@uri}"
+      rescue Errno::ETIMEDOUT # timeout
+        puts "#{@uri} is down"
       end
     end
 
