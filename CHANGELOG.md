@@ -1,3 +1,9 @@
+# 0.3.2 (July 23, 2015)
+
+Fix:
+* net timeouts
+
+
 # 0.3.1 (May 19, 2015)
 
 Fix:
