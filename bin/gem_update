@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'optparse'
 
 # Exit cleanly from an early interrupt
 Signal.trap("INT") { exit 1 }
@@ -6,11 +7,18 @@ Signal.trap("INT") { exit 1 }
 $:.unshift File.expand_path( '../../lib', __FILE__ )
 require 'gem_updater'
 
+options = {}
+OptionParser.new do |opts|
+  opts.on( "-c", "--commit", "Auto commit" ) do |v|
+    options[ :commit ] = v
+  end
+end.parse!
+
 gems = GemUpdater::Updater.new
-gems.update!
+gems.update!( ARGV )
 
 if gems.gemfile.changes.any?
-  if ARGV.include? '--commit'
+  if options[ :commit ]
     require 'tempfile'
     file = Tempfile.new( 'gem_updater' )
     file.write "UPDATE gems\n\n"

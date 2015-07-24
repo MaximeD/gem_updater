@@ -2,25 +2,24 @@ require 'spec_helper'
 
 describe GemUpdater::Updater do
   let( :gemfile ) do
-    OpenStruct.new(
-      update!:          ->{},
-      changes:          { fake_gem: { versions: { old: '0.1', new: '0.2' } } },
-      compute_changes:  ->{},
-      find_source:      ->{}
-    )
+    instance_double( GemUpdater::GemFile, changes: { fake_gem: { versions: { old: '0.1', new: '0.2' } } } )
+  end
+
+  let( :source_page_parser ) do
+    instance_double( GemUpdater::SourcePageParser, changelog: 'fake_gem_changelog_url' )
   end
 
   before :each do
     allow( GemUpdater::GemFile ).to receive( :new ).and_return( gemfile )
+    allow( GemUpdater::SourcePageParser ).to receive( :new ).and_return( source_page_parser )
   end
 
   describe '#update' do
     before :each do
       allow( gemfile ).to receive( :update! )
       allow( gemfile ).to receive( :compute_changes )
-      allow( subject ).to receive( :find_source )               { 'fake_gem_changelog_url' }
-      allow( GemUpdater::SourcePageParser ).to receive( :new )  { OpenStruct.new( changelog: 'fake_gem_changelog_url' ) }
-      subject.update!
+      allow( subject ).to receive( :find_source )     { 'fake_gem_changelog_url' }
+      subject.update!( [] )
     end
 
     it 'updates gemfile' do
@@ -38,10 +37,10 @@ describe GemUpdater::Updater do
 
   describe '#output_diff' do
     before :each do
-      allow( gemfile ).to receive( :changes ).and_return( {
-        fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
-        fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } }
-      } )
+      allow( gemfile ).to receive( :changes ) do
+        { fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
+        fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } } }
+      end
       allow( STDOUT ).to receive( :puts )
       subject.output_diff
     end
@@ -64,10 +63,10 @@ CHANGELOG
 
   describe '#format_diff' do
     before :each do
-      allow( gemfile ).to receive( :changes ).and_return( {
-        fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
-        fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } }
-      } )
+      allow( gemfile ).to receive( :changes ) do
+        { fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
+        fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } } }
+      end
     end
 
     it 'contains changes' do

@@ -1,3 +1,14 @@
+# master
+
+Add ability to update only a given set of gems (just as bundler does).
+
+```
+gem_update gem1 gem2
+```
+
+Enhancement:
+* allow to update only given gems
+
 # 0.3.2 (July 23, 2015)
 
 Fix:
