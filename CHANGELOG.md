@@ -1,10 +1,16 @@
-# master
+# 0.4.0 (July 25, 2015)
 
-Add ability to update only a given set of gems (just as bundler does).
+You can now update only a set of gems (just as bundler does).
 
+example:
 ```
 gem_update gem1 gem2
 ```
+
+Moreover, fetching changelog is now multithreaded.
+Depending on how many gems were updated,
+you should see a major speedup.
+
 
 Enhancement:
 * allow to update only given gems
