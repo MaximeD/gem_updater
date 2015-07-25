@@ -34,7 +34,7 @@ module GemUpdater
 
     # Print formatted diff
     def output_diff
-      puts format_diff.join( "\n" )
+      Bundler.ui.info format_diff.join
     end
 
     # Format the diff to get human readable information
