@@ -23,13 +23,7 @@ module GemUpdater
       gemfile.update!( gems )
       gemfile.compute_changes
 
-      gemfile.changes.each do |gem_name, details|
-        if source_uri = find_source( gem_name, details[ :source ] )
-          source_page = GemUpdater::SourcePageParser.new( url: source_uri, version: details[ :versions ][ :new ] )
-
-          gemfile.changes[ gem_name ][ :changelog ] = source_page.changelog if source_page.changelog
-        end
-      end
+      fill_changelogs
     end
 
     # Print formatted diff
@@ -46,6 +40,24 @@ module GemUpdater
     end
 
     private
+
+    # For each gem, retrieve its changelog
+    def fill_changelogs
+      threads = []
+
+      gemfile.changes.each do |gem_name, details|
+        threads << Thread.new do
+          if source_uri = find_source( gem_name, details[ :source ] )
+            source_page = GemUpdater::SourcePageParser.new( url: source_uri, version: details[ :versions ][ :new ] )
+
+            gemfile.changes[ gem_name ][ :changelog ] = source_page.changelog if source_page.changelog
+          end
+        end
+      end
+
+      threads.each( &:join )
+    end
+
 
     # Find where is hosted the source of a gem
     #
