@@ -55,7 +55,7 @@ module GemUpdater
               when 'rails-assets.org'
                 uri_from_railsassets
               else
-                puts "Source #{remote} is not supported, feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
+                Bundler.ui.error "Source #{remote} is not supported, feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
               end
       end
 

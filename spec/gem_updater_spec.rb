@@ -41,22 +41,20 @@ describe GemUpdater::Updater do
         { fake_gem_1: { changelog: 'fake_gem_1_url', versions: { old: '1.0', new: '1.1' } },
         fake_gem_2: { changelog: 'fake_gem_2_url', versions: { old: '0.4', new: '0.4.2' } } }
       end
-      allow( STDOUT ).to receive( :puts )
+      allow( Bundler.ui ).to receive( :info )
       subject.output_diff
     end
 
     it 'outputs changes' do
-      expect( STDOUT ).to have_received( :puts ).with( <<CHANGELOG
+      expect( Bundler.ui ).to have_received( :info ).with( <<CHANGELOG
 * fake_gem_1 1.0 → 1.1
 [changelog](fake_gem_1_url)
-
 
 * fake_gem_2 0.4 → 0.4.2
 [changelog](fake_gem_2_url)
 
 CHANGELOG
       )
-
     end
   end
 

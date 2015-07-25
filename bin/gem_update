@@ -7,6 +7,8 @@ Signal.trap("INT") { exit 1 }
 $:.unshift File.expand_path( '../../lib', __FILE__ )
 require 'gem_updater'
 
+Bundler.ui = Bundler::UI::Shell.new
+
 options = {}
 OptionParser.new do |opts|
   opts.on( "-c", "--commit", "Auto commit" ) do |v|
@@ -30,10 +32,10 @@ if gems.gemfile.changes.any?
     system %(git add #{gemfile} #{gemfile}.lock && git commit -t #{file.path} --allow-empty-message)
     file.unlink
   else
-    puts "\nHere are your changes:"
-    puts '------------------------'
+    Bundler.ui.confirm "\nHere are your changes:"
+    Bundler.ui.confirm '------------------------'
     gems.output_diff
   end
 else
-  puts "\nCongratulations, your Gemfile was already up-to-date!"
+  Bundler.ui.confirm "\nCongratulations, your Gemfile was already up-to-date!"
 end

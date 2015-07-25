@@ -19,15 +19,15 @@ module GemUpdater
     # @return [String, nil] URL of changelog
     def changelog
       @changelog ||= begin
-        puts "Looking for a changelog in #{@uri}"
+        Bundler.ui.warn "Looking for a changelog in #{@uri}"
         doc = Nokogiri::HTML( open( @uri ) )
 
         find_changelog( doc )
 
       rescue OpenURI::HTTPError # Uri points to nothing
-        puts "Cannot find #{@uri}"
+        Bundler.ui.error "Cannot find #{@uri}"
       rescue Errno::ETIMEDOUT # timeout
-        puts "#{@uri} is down"
+        Bundler.ui.error "#{@uri} is down"
       end
     end
 

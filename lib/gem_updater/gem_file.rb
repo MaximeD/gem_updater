@@ -13,7 +13,7 @@ module GemUpdater
 
     # Run `bundle update` to update gems.
     def update!( gems )
-      puts "Updating gems..."
+      Bundler.ui.warn "Updating gems..."
       Bundler::CLI.start( [ 'update' ] + gems )
     end
 

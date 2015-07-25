@@ -8,6 +8,7 @@ gem_update gem1 gem2
 
 Enhancement:
 * allow to update only given gems
+* refactor logger (use `Bundler.ui`)
 
 # 0.3.2 (July 23, 2015)
 
