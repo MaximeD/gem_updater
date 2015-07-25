@@ -17,10 +17,11 @@ module GemUpdater
     # This will:
     #   1. update gemfile
     #   2. find changelogs for updated gems
-    def update!
-      gemfile.update!
+    #
+    # @param gems [Array] list of gems to update
+    def update!( gems )
+      gemfile.update!( gems )
       gemfile.compute_changes
-
 
       gemfile.changes.each do |gem_name, details|
         if source_uri = find_source( gem_name, details[ :source ] )

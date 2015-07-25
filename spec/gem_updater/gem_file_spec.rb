@@ -24,7 +24,7 @@ describe GemUpdater::GemFile do
   describe '#update!' do
     before :each do
       allow( subject ).to receive( :compute_changes )
-      subject.update!
+      subject.update!( [] )
     end
 
     it 'launches bundle update' do
