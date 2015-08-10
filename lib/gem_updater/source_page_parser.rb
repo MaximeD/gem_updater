@@ -26,8 +26,10 @@ module GemUpdater
 
       rescue OpenURI::HTTPError # Uri points to nothing
         Bundler.ui.error "Cannot find #{@uri}"
+        false
       rescue Errno::ETIMEDOUT # timeout
         Bundler.ui.error "#{@uri} is down"
+        false
       end
     end
 

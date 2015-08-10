@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Fix:
+* when changelog is not found, it may return an object instead of nothing
+
 # 0.4.0 (July 25, 2015)
 
 You can now update only a set of gems (just as bundler does).
