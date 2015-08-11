@@ -1,7 +1,7 @@
-# master (unreleased)
+# 0.4.1 (August 11, 2015)
 
 Fix:
-* when changelog is not found, it may return an object instead of nothing
+* when changelog is not found, it returns an object instead of `nil`
 
 # 0.4.0 (July 25, 2015)
 
