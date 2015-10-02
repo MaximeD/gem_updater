@@ -2,6 +2,7 @@
 
 Enhancement:
 * add recognition of `Changes` as a changelog
+* add support of `textile` files
 
 # 0.4.1 (August 11, 2015)
 

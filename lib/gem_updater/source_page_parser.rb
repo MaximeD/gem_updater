@@ -81,7 +81,7 @@ module GemUpdater
     # @param file_name [String] file name of changelog
     # @return [Boolean] true if file may contain an anchor
     def changelog_may_contain_anchor?( file_name )
-      %w( .md .rdoc ).include?( File.extname( file_name ) )
+      %w( .md .rdoc .textile ).include?( File.extname( file_name ) )
     end
 
     # GitHubParser is responsible for parsing source code
