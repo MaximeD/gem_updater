@@ -70,7 +70,9 @@ module GemUpdater
     #
     # @return [Array] list of possible names
     def changelog_names
-      %w( CHANGELOG Changelog ChangeLog changelog HISTORY History history )
+      base_names = %w( changelog history changes )
+      other_names = %w( ChangeLog )
+      base_names + base_names.map( &:upcase ) + base_names.map( &:capitalize ) + other_names
     end
 
     # Some documents like the one written in markdown may contain
