@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Enhancement:
+* add recognition of `Changes` as a changelog
+
 # 0.4.1 (August 11, 2015)
 
 Fix:
