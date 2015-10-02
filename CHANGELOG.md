@@ -1,4 +1,4 @@
-# master (unreleased)
+# 0.4.2 (October 02, 2015)
 
 Enhancement:
 * add recognition of `Changes` as a changelog
