@@ -56,7 +56,7 @@ By default, diff for your gems will look like the following:
 ```
 
 You can change it if you like by writing you own template `.gem_updater_template.erb` in your home directory.
-[Look at default template](https://github.com/MaximeD/gem_updater/lib/gem_updater_template.erb) for an example on how to do it.
+[Look at default template](lib/gem_updater_template.erb) for an example on how to do it.
 
 ## Contributing
 
