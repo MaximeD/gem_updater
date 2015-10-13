@@ -70,7 +70,7 @@ module GemUpdater
     #
     # @return [Array] list of possible names
     def changelog_names
-      base_names = %w( changelog history changes )
+      base_names = %w( changelog history changes news )
       other_names = %w( ChangeLog )
       base_names + base_names.map( &:upcase ) + base_names.map( &:capitalize ) + other_names
     end
