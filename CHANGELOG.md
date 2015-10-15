@@ -1,7 +1,12 @@
+# 0.4.3 (October 15, 2015)
+
+Enhancement:
+* add recognition of `news` as a changelog name (@mattmenefee)
+
 # 0.4.2 (October 02, 2015)
 
 Enhancement:
-* add recognition of `Changes` as a changelog
+* add recognition of `Changes` as a changelog name
 * add support of `textile` files
 
 # 0.4.1 (August 11, 2015)
