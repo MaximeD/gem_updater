@@ -38,7 +38,11 @@ module GemUpdater
       end
 
       if response
-        response[ "source_code_uri" ] || response[ "homepage_uri" ]
+        response[
+          %w( source_code_uri homepage_uri ).find do |key|
+            response[ key ] && !response[ key ].empty?
+          end
+        ]
       end
     end
 
