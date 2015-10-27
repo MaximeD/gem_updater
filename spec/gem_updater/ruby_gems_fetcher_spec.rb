@@ -38,9 +38,21 @@ describe GemUpdater::RubyGemsFetcher do
         end
       end
 
-      context 'none is present' do
+      context 'when none is present' do
         before do
           allow( subject ).to receive_message_chain( :open, :read ) { {}.to_json }
+          allow( subject ).to receive( :uri_from_other_sources )
+          subject.source_uri
+        end
+
+        it 'looks in other sources' do
+          expect( subject ).to have_received( :uri_from_other_sources )
+        end
+      end
+
+      context 'when both returns empty string' do
+        before do
+          allow( subject ).to receive_message_chain( :open, :read ) { { source_code_uri: '', homepage_uri: '' }.to_json }
           allow( subject ).to receive( :uri_from_other_sources )
           subject.source_uri
         end

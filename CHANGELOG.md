@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Fix:
+* considering `''` as a valid url to parse
+
 # 0.4.3 (October 15, 2015)
 
 Enhancement:
