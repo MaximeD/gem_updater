@@ -1,4 +1,4 @@
-# master (unreleased)
+# v0.4.4 (October 27, 2015)
 
 Fix:
 * considering `''` as a valid url to parse
