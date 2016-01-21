@@ -52,7 +52,7 @@ By default, diff for your gems will look like the following:
 [changelog](https://github.com/maintainer/gem_1/CHANGELOG.md#02)
 
 * gem_2 3.4.2 → 3.4.3
-[changelog](https://github.com/maintainer/gem_1/CHANGELOG.md#343)
+[changelog](https://github.com/maintainer/gem_2/CHANGELOG.md#343)
 ```
 
 You can change it if you like by writing you own template `.gem_updater_template.erb` in your home directory.
