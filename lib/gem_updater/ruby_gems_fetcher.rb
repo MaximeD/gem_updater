@@ -31,10 +31,17 @@ module GemUpdater
     # @return [String|nil] uri of source code
     def uri_from_rubygems
       return unless source.remotes.map( &:host ).include?( 'rubygems.org' )
+      tries = 0
 
       response = begin
         JSON.parse( open( "https://rubygems.org/api/v1/gems/#{gem_name}.json" ).read )
-      rescue OpenURI::HTTPError
+      rescue OpenURI::HTTPError => e
+        # We may trigger too many requests, in which case give rubygems a break
+        if e.io.status.include?( '429' )
+          if ( tries += 1 ) < 2
+            sleep 1 and retry
+          end
+        end
       end
 
       if response

@@ -5,6 +5,18 @@ describe GemUpdater::RubyGemsFetcher do
 
   describe '#source_uri' do
     context 'when gem exists on rubygems.org' do
+
+      describe 'making too many requests' do
+        before do
+          allow( subject ).to receive_message_chain( :open ) { raise OpenURI::HTTPError.new( '429', OpenStruct.new( status: [ '429' ] ) ) }
+          subject.source_uri
+        end
+
+        it 'tries again' do
+          expect( subject ).to have_received( :open ).twice
+        end
+      end
+
       context "when 'source_code_uri' is present" do
         before do
           allow( subject ).to receive_message_chain( :open, :read ) { { source_code_uri: 'source_code_uri' }.to_json }
