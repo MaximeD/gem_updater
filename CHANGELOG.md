@@ -1,3 +1,8 @@
+# v0.4.5 (February 13, 2016)
+
+Fix:
+* making too many requests in a row to [rubygems](rubygems.org)
+
 # v0.4.4 (October 27, 2015)
 
 Fix:
