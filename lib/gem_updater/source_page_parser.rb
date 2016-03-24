@@ -19,10 +19,12 @@ module GemUpdater
     # @return [String, nil] URL of changelog
     def changelog
       @changelog ||= begin
-        Bundler.ui.warn "Looking for a changelog in #{@uri}"
-        doc = Nokogiri::HTML( open( @uri ) )
+        if @uri
+          Bundler.ui.warn "Looking for a changelog in #{@uri}"
+          doc = Nokogiri::HTML( open( @uri ) )
 
-        find_changelog( doc )
+          find_changelog( doc )
+        end
 
       rescue OpenURI::HTTPError # Uri points to nothing
         Bundler.ui.error "Cannot find #{@uri}"
@@ -41,18 +43,20 @@ module GemUpdater
     # @param url [String] the url to parse
     # @return [URI] valid URI
     def correct_uri( url )
-      uri = URI( url )
-      if uri.scheme == 'http'
-        case
-        when uri.host.match( 'github.com' )
-          # remove possible subdomain like 'wiki.github.com'
-          uri = URI "https://github.com#{uri.path}"
-        when uri.host.match( 'bitbucket.org' )
-          uri = URI "https://#{uri.host}#{uri.path}"
+      if String === url and ! url.empty?
+        uri = URI( url )
+        if uri.scheme == 'http'
+          case
+          when uri.host.match( 'github.com' )
+            # remove possible subdomain like 'wiki.github.com'
+            uri = URI "https://github.com#{uri.path}"
+          when uri.host.match( 'bitbucket.org' )
+            uri = URI "https://#{uri.host}#{uri.path}"
+          end
         end
-      end
 
-      uri
+        uri
+      end
     end
 
     # Try to find where changelog might be.
