@@ -2,34 +2,38 @@
 require 'optparse'
 
 # Exit cleanly from an early interrupt
-Signal.trap("INT") { exit 1 }
+Signal.trap('INT') { exit 1 }
 
-$:.unshift File.expand_path( '../../lib', __FILE__ )
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gem_updater'
 
 Bundler.ui = Bundler::UI::Shell.new
 
 options = {}
 OptionParser.new do |opts|
-  opts.on( "-c", "--commit", "Auto commit" ) do |v|
-    options[ :commit ] = v
+  opts.on('-c', '--commit', 'Auto commit') do |v|
+    options[:commit] = v
   end
 end.parse!
 
 gems = GemUpdater::Updater.new
-gems.update!( ARGV )
+gems.update!(ARGV)
 
 if gems.gemfile.changes.any?
-  if options[ :commit ]
+  if options[:commit]
     require 'tempfile'
-    file = Tempfile.new( 'gem_updater' )
+    file = Tempfile.new('gem_updater')
     file.write "UPDATE gems\n\n"
     file.write gems.format_diff.join
     file.close
 
     gemfile = Bundler.default_gemfile.to_s
 
-    system %(git add #{gemfile} #{gemfile}.lock && git commit -t #{file.path} --allow-empty-message)
+    system %(
+      git add #{gemfile} #{gemfile}.lock \
+      && git commit -t #{file.path} --allow-empty-message
+    )
+
     file.unlink
   else
     Bundler.ui.confirm "\nHere are your changes:"

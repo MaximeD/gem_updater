@@ -12,9 +12,9 @@ module GemUpdater
     end
 
     # Run `bundle update` to update gems.
-    def update!( gems )
-      Bundler.ui.warn "Updating gems..."
-      Bundler::CLI.start( [ 'update' ] + gems )
+    def update!(gems)
+      Bundler.ui.warn 'Updating gems...'
+      Bundler::CLI.start(['update'] + gems)
     end
 
     # Compute the diffs between two `Gemfile.lock`.
@@ -24,10 +24,10 @@ module GemUpdater
       get_spec_sets
 
       old_spec_set.each do |old_gem|
-        if updated_gem = new_spec_set.find{ |new_gem| new_gem.name == old_gem.name }
-          unless old_gem.version == updated_gem.version
-            changes[ old_gem.name ] = { versions: { old: old_gem.version.to_s, new: updated_gem.version.to_s }, source: updated_gem.source }
-          end
+        updated_gem = new_spec_set.find { |new_gem| new_gem.name == old_gem.name }
+
+        if updated_gem && old_gem.version != updated_gem.version
+          fill_changes(old_gem, updated_gem)
         end
       end
     end
@@ -52,7 +52,20 @@ module GemUpdater
     # will return the same result.
     # Use a hacky way to tell bundle we want to parse the new `Gemfile.lock`
     def reinitialize_spec_set!
-      Bundler.remove_instance_variable( "@locked_gems" )
+      Bundler.remove_instance_variable('@locked_gems')
+    end
+
+    # Add changes to between two versions of a gem
+    #
+    # @param old_gem [Bundler::LazySpecification]
+    # @param new_gem [Bundler::LazySpecification]
+    def fill_changes(old_gem, updated_gem)
+      changes[old_gem.name] = {
+        versions: {
+          old: old_gem.version.to_s, new: updated_gem.version.to_s
+        },
+        source: updated_gem.source
+      }
     end
   end
 end
