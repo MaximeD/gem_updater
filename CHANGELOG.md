@@ -3,6 +3,9 @@
 Fix:
 * using other source with [rubygems](rubygems.org) (@oelmekki)
 
+Enhancement:
+* add ruby `2.3` to travis
+
 Refactor:
 * global refactor
 

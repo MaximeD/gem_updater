@@ -2,6 +2,7 @@ language: ruby
 before_install:
   - gem install bundler # use the latest bundler, since Travis doesn't update for us
 rvm:
+  - 2.3.0
   - 2.2
   - 2.1
   - 2.0
