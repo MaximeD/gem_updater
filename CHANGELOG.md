@@ -1,4 +1,4 @@
-# master (unreleased)
+# v0.5.0 (April 09, 2016)
 
 Fix:
 * using other source with [rubygems](rubygems.org) (@oelmekki)
