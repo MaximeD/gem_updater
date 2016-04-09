@@ -6,11 +6,14 @@ module GemUpdater
 
   # RubyGemsFetcher is a wrapper around rubygems API.
   class RubyGemsFetcher
+    HTTP_TOO_MANY_REQUESTS = '429'.freeze
+    GEM_HOMEPAGES = %w[source_code_uri homepage_uri].freeze
+
     attr_reader :gem_name, :source
 
     # @param gem_name [String] name of the gem
     # @param source [Bundler::Source] source of gem
-    def initialize( gem_name, source )
+    def initialize(gem_name, source)
       @gem_name = gem_name
       @source   = source
     end
@@ -30,26 +33,27 @@ module GemUpdater
     #
     # @return [String|nil] uri of source code
     def uri_from_rubygems
-      return unless source.remotes.map( &:host ).include?( 'rubygems.org' )
-      tries = 0
+      return unless source.remotes.map(&:host).include?('rubygems.org')
 
-      response = begin
-        JSON.parse( open( "https://rubygems.org/api/v1/gems/#{gem_name}.json" ).read )
-      rescue OpenURI::HTTPError => e
-        # We may trigger too many requests, in which case give rubygems a break
-        if e.io.status.include?( '429' )
-          if ( tries += 1 ) < 2
-            sleep 1 and retry
-          end
-        end
-      end
-
-      if response
+      if response = query_rubygems
         response[
-          %w( source_code_uri homepage_uri ).find do |key|
-            response[ key ] && !response[ key ].empty?
-          end
+          GEM_HOMEPAGES.find { |key| response[key] && !response[key].empty? }
         ]
+      end
+    end
+
+    # Make the real query to rubygems
+    # It may fail in case we trigger too many requests
+    #
+    # @param tries [Integer|nil] (optional) how many times we tried
+    def query_rubygems(tries = 0)
+      JSON.parse(open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read)
+    rescue OpenURI::HTTPError => e
+      # We may trigger too many requests, in which case give rubygems a break
+      if e.io.status.include?(HTTP_TOO_MANY_REQUESTS)
+        if (tries += 1) < 2
+          sleep 1 and retry
+        end
       end
     end
 
@@ -78,17 +82,22 @@ module GemUpdater
     #
     # @return [String|nil] uri of source code
     def uri_from_railsassets
-      begin
-        response = JSON.parse( open( "https://rails-assets.org/packages/#{gem_name.gsub( /rails-assets-/, '' )}" ).read )
-      rescue JSON::ParserError
-        # if gem is not found, rails-assets returns a 200
-        # with html (instead of json) containing a 500...
-      rescue OpenURI::HTTPError
+      if response = query_railsassets
+        response['url'].gsub(/^git/, 'http')
       end
+    end
 
-      if response
-        response[ "url" ].gsub( /^git/, 'http' )
-      end
+    # Make the real query to railsassets
+    def query_railsassets
+      JSON.parse(
+        open(
+          "https://rails-assets.org/packages/#{gem_name.gsub(/rails-assets-/, '')}"
+        ).read
+      )
+    rescue JSON::ParserError
+      # if gem is not found, rails-assets returns a 200
+      # with html (instead of json) containing a 500...
+    rescue OpenURI::HTTPError
     end
   end
 end

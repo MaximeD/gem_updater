@@ -6,11 +6,16 @@ module GemUpdater
   # SourcePageParser is responsible for parsing a source page where
   # the gem code is hosted.
   class SourcePageParser
+    HOSTS = { github: /github.com/, bitbucket: /bitbucket.org/ }.freeze
+    MARKUP_FILES = %w[.md .rdoc .textile].freeze
+    CHANGELOG_NAMES = %w[changelog ChangeLog history changes news].freeze
+
+    attr_reader :uri, :version
 
     # @param url [String] url of page
     # @param version [String] version of gem
-    def initialize( url: nil, version: nil )
-      @uri     = correct_uri( url )
+    def initialize(url: nil, version: nil)
+      @uri     = correct_uri(url)
       @version = version
     end
 
@@ -19,18 +24,18 @@ module GemUpdater
     # @return [String, nil] URL of changelog
     def changelog
       @changelog ||= begin
-        if @uri
-          Bundler.ui.warn "Looking for a changelog in #{@uri}"
-          doc = Nokogiri::HTML( open( @uri ) )
+        if uri
+          Bundler.ui.warn "Looking for a changelog in #{uri}"
+          doc = Nokogiri::HTML(open(uri))
 
-          find_changelog( doc )
+          find_changelog(doc)
         end
 
       rescue OpenURI::HTTPError # Uri points to nothing
-        Bundler.ui.error "Cannot find #{@uri}"
+        Bundler.ui.error "Cannot find #{uri}"
         false
       rescue Errno::ETIMEDOUT # timeout
-        Bundler.ui.error "#{@uri} is down"
+        Bundler.ui.error "#{uri} is down"
         false
       end
     end
@@ -42,19 +47,32 @@ module GemUpdater
     #
     # @param url [String] the url to parse
     # @return [URI] valid URI
-    def correct_uri( url )
-      if String === url and ! url.empty?
-        uri = URI( url )
-        if uri.scheme == 'http'
-          case
-          when uri.host.match( 'github.com' )
-            # remove possible subdomain like 'wiki.github.com'
-            uri = URI "https://github.com#{uri.path}"
-          when uri.host.match( 'bitbucket.org' )
-            uri = URI "https://#{uri.host}#{uri.path}"
-          end
-        end
+    def correct_uri(url)
+      return unless String === url && !url.empty?
 
+      uri = URI(url)
+
+      if uri.scheme == 'http'
+        known_https(uri)
+      else
+        uri
+      end
+    end
+
+    # Some uris are not https, but we know they should be,
+    # in which case we have an https redirection
+    # which is not properly handled by open-uri
+    #
+    # @param uri [URI::HTTP]
+    # @return [URI::HTTPS|URI::HTTP]
+    def known_https(uri)
+      case
+      when uri.host =~ HOSTS[:github]
+        # remove possible subdomain like 'wiki.github.com'
+        URI "https://github.com#{uri.path}"
+      when uri.host =~ HOSTS[:bitbucket]
+        URI "https://#{uri.host}#{uri.path}"
+      else
         uri
       end
     end
@@ -62,10 +80,10 @@ module GemUpdater
     # Try to find where changelog might be.
     #
     # @param doc [Nokogiri::XML::Element] document of source page
-    def find_changelog( doc )
-      case @uri.host
+    def find_changelog(doc)
+      case uri.host
       when 'github.com'
-        GitHubParser.new( doc, @version ).changelog
+        GitHubParser.new(doc, version).changelog
       end
     end
 
@@ -74,9 +92,9 @@ module GemUpdater
     #
     # @return [Array] list of possible names
     def changelog_names
-      base_names = %w( changelog history changes news )
-      other_names = %w( ChangeLog )
-      base_names + base_names.map( &:upcase ) + base_names.map( &:capitalize ) + other_names
+      CHANGELOG_NAMES.flat_map do |name|
+        [name, name.upcase, name.capitalize]
+      end.uniq
     end
 
     # Some documents like the one written in markdown may contain
@@ -84,18 +102,20 @@ module GemUpdater
     #
     # @param file_name [String] file name of changelog
     # @return [Boolean] true if file may contain an anchor
-    def changelog_may_contain_anchor?( file_name )
-      %w( .md .rdoc .textile ).include?( File.extname( file_name ) )
+    def changelog_may_contain_anchor?(file_name)
+      MARKUP_FILES.include?(File.extname(file_name))
     end
 
     # GitHubParser is responsible for parsing source code
     # hosted on github.com.
     class GitHubParser < SourcePageParser
-      BASE_URL = 'https://github.com'
+      BASE_URL = 'https://github.com'.freeze
+
+      attr_reader :doc, :version
 
       # @param doc [Nokogiri::XML::Element] document of source page
       # @param version [String] version of gem
-      def initialize( doc, version )
+      def initialize(doc, version)
         @doc     = doc
         @version = version
       end
@@ -109,8 +129,8 @@ module GemUpdater
         if url
           full_url = BASE_URL + url
 
-          if changelog_may_contain_anchor?( full_url )
-            anchor = find_anchor( full_url )
+          if changelog_may_contain_anchor?(full_url)
+            anchor = find_anchor(full_url)
             full_url += anchor if anchor
           end
 
@@ -125,10 +145,9 @@ module GemUpdater
       # @return [String, nil] url of changelog
       def find_changelog_link
         changelog_names.find do |name|
-          node = @doc.at_css( %(table.files a[title^="#{name}"]) )
-          if node
-            break node.attr( 'href' )
-          end
+          node = doc.at_css(%(table.files a[title^="#{name}"]))
+
+          break node.attr('href') if node
         end
       end
 
@@ -136,13 +155,13 @@ module GemUpdater
       #
       # @param url [String] url of changelog
       # @return [String, nil] anchor's href
-      def find_anchor( url )
-        changelog_page = Nokogiri::HTML( open( url ) )
-        anchor = changelog_page.css( %(a.anchor) ).find{ |element| element.attr( 'href' ).match( @version.gsub('.', '') ) }
-
-        if anchor
-          anchor.attr( 'href' )
+      def find_anchor(url)
+        changelog_page = Nokogiri::HTML(open(url))
+        anchor = changelog_page.css(%(a.anchor)).find do |element|
+          element.attr('href').match(version.delete('.'))
         end
+
+        anchor.attr('href') if anchor
       end
     end
   end

@@ -3,6 +3,9 @@
 Fix:
 * using other source with [rubygems](rubygems.org) (@oelmekki)
 
+Refactor:
+* global refactor
+
 # v0.4.5 (February 13, 2016)
 
 Fix:
