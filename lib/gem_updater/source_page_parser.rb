@@ -6,7 +6,11 @@ module GemUpdater
   # SourcePageParser is responsible for parsing a source page where
   # the gem code is hosted.
   class SourcePageParser
-    HOSTS = { github: /github.com/, bitbucket: /bitbucket.org/ }.freeze
+    HOSTS = {
+      github: /github.com/,
+      bitbucket: /bitbucket.org/,
+      rubygems: /rubygems.org/
+    }.freeze
     MARKUP_FILES = %w[.md .rdoc .textile].freeze
     CHANGELOG_NAMES = %w[changelog ChangeLog history changes news].freeze
 
@@ -71,6 +75,8 @@ module GemUpdater
         # remove possible subdomain like 'wiki.github.com'
         URI "https://github.com#{uri.path}"
       when uri.host =~ HOSTS[:bitbucket]
+        URI "https://#{uri.host}#{uri.path}"
+      when uri.host =~ HOSTS[:rubygems]
         URI "https://#{uri.host}#{uri.path}"
       else
         uri
