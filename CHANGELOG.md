@@ -1,4 +1,4 @@
-# master (unreleased)
+# v0.5.1 (May 24, 2016)
 
 Fix:
 * `https` redirection for `rubygems.org`
