@@ -1,4 +1,9 @@
+require 'codacy-coverage'
 require 'gem_updater'
+require 'simplecov'
+
+Codacy::Reporter.start
+SimpleCov.start
 
 Dir["#{File.expand_path('../support', __FILE__)}/*.rb"].each do |file|
   require file

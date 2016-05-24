@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Development tools:
+* add code coverage
+
 # v0.5.1 (May 24, 2016)
 
 Fix:
