@@ -2,6 +2,7 @@
 
 Development tools:
 * add code coverage
+* add codacy badges
 
 # v0.5.1 (May 24, 2016)
 

@@ -1,6 +1,8 @@
 [![Version     ](https://img.shields.io/gem/v/gem_updater.svg?style=flat)](https://rubygems.org/gems/gem_updater)
 [![Build Status](https://img.shields.io/travis/MaximeD/gem_updater/master.svg?style=flat)](https://travis-ci.org/MaximeD/gem_updater)
 [![Code Climate](https://img.shields.io/codeclimate/github/MaximeD/gem_updater.svg?style=flat)](https://codeclimate.com/github/MaximeD/gem_updater)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6d4f756ade048bd86624347856da9ea)](https://www.codacy.com/app/MaximeD/gem_updater?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaximeD/gem_updater&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d6d4f756ade048bd86624347856da9ea)](https://www.codacy.com/app/MaximeD/gem_updater?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaximeD/gem_updater&amp;utm_campaign=Badge_Coverage)
 [![Inline docs ](http://inch-ci.org/github/MaximeD/gem_updater.svg?style=flat)](http://inch-ci.org/github/MaximeD/gem_updater)
 
 # GemUpdater: update your gemfile and retrieve changelogs
