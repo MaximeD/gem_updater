@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Fix:
+* css selector for github
+
 Development tools:
 * add code coverage
 * add codacy badges
