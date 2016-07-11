@@ -3,6 +3,9 @@
 Fix:
 * css selector for github
 
+Updates:
+* gems and dependencies
+
 Development tools:
 * add `bundler` caching on travis
 * add code coverage
