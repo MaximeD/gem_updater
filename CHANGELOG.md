@@ -1,4 +1,4 @@
-# master (unreleased)
+# v0.5.2 (July 11, 2016)
 
 Fix:
 * css selector for github
