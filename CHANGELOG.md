@@ -4,6 +4,7 @@ Fix:
 * css selector for github
 
 Development tools:
+* add `bundler` caching on travis
 * add code coverage
 * add codacy badges
 
