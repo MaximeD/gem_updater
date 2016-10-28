@@ -1,4 +1,6 @@
-# master (unreleased)
+# v1.0 (October 28, 2016)
+
+**Switch to SemVer.**
 
 Fix:
 * compatibility with bundler 1.13

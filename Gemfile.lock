@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gem_updater (0.5.2)
+    gem_updater (1.0)
       bundler (~> 1.13)
       json (~> 2.0)
       nokogiri (~> 1.6)
