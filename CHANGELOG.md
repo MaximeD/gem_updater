@@ -1,3 +1,9 @@
+# master (unreleased)
+
+Fix:
+* compatibility with bundler 1.13
+
+
 # v0.5.2 (July 11, 2016)
 
 Fix:

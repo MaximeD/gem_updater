@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.add_runtime_dependency 'bundler',   '~> 1.12'
+  s.add_runtime_dependency 'bundler',   '~> 1.13'
   s.add_runtime_dependency 'json',      '~> 2.0'
   s.add_runtime_dependency 'nokogiri',  '~> 1.6'
 
