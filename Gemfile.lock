@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    gem_updater (0.5.2)
-      bundler (~> 1.12)
+    gem_updater (1.0)
+      bundler (~> 1.13)
       json (~> 2.0)
       nokogiri (~> 1.6)
 
@@ -15,10 +15,8 @@ GEM
     docile (1.1.5)
     json (2.0.1)
     mini_portile2 (2.1.0)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
-    pkg-config (1.1.7)
     rake (11.2.2)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
@@ -50,4 +48,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

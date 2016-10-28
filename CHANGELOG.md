@@ -1,3 +1,11 @@
+# v1.0 (October 28, 2016)
+
+**Switch to SemVer.**
+
+Fix:
+* compatibility with bundler 1.13
+
+
 # v0.5.2 (July 11, 2016)
 
 Fix:
