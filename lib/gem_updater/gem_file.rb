@@ -53,6 +53,7 @@ module GemUpdater
     # Use a hacky way to tell bundle we want to parse the new `Gemfile.lock`
     def reinitialize_spec_set!
       Bundler.remove_instance_variable('@locked_gems')
+      Bundler.remove_instance_variable('@definition')
     end
 
     # Add changes to between two versions of a gem
