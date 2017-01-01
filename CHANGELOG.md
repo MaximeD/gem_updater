@@ -1,4 +1,4 @@
-# Master (unreleased)
+# v2.0 (January 1, 2017)
 
 Deprecations:
 * ruby 2.1 is now deprecated in order to use latest nokogiri with ruby 2.4
