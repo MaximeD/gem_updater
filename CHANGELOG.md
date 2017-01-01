@@ -1,3 +1,9 @@
+# Master (unreleased)
+
+Deprecations:
+* ruby 2.1 is now deprecated in order to use latest nokogiri with ruby 2.4
+
+
 # v1.0 (October 28, 2016)
 
 **Switch to SemVer.**

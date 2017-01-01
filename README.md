@@ -27,7 +27,7 @@ Obviously, you still have to read changelogs and adapt your code though ;)
 
 ## Installation and usage
 
-**You must have ruby 2.0 or above to use it!**
+**You must have ruby 2.1 or above to use it!**
 
 ```
 gem install gem_updater
