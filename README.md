@@ -7,7 +7,7 @@
 [![Inline docs ](http://inch-ci.org/github/MaximeD/gem_updater.svg?style=flat)](http://inch-ci.org/github/MaximeD/gem_updater)
 
 
-# <img src="https://cdn.rawgit.com/MaximeD/gem_updater/master/logo.svg" height="48" width="48"> GemUpdater: update your gemfile and retrieve changelogs
+# <img src="https://cdn.rawgit.com/MaximeD/gem_updater/bff4228f/logo.svg" height="48" width="48"> GemUpdater: update your gemfile and retrieve changelogs
 
 Every week or so, you wish to update your `Gemfile`,
 to do so, you just have to launch `bundle update`.
