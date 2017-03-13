@@ -1,10 +1,10 @@
-# master (unreleased)
+# v2.1 (March 13, 2017)
 
 Fix:
 * parsing urls with `x-oauth-token`
 
 Development tools:
-* ADD gemnasium badge
+* add gemnasium badge
 
 # v2.0 (January 1, 2017)
 
