@@ -27,19 +27,22 @@ module GemUpdater
     #
     # @return [String, nil] URL of changelog
     def changelog
-      @changelog ||= begin
-        if uri
-          Bundler.ui.warn "Looking for a changelog in #{uri}"
-          doc = Nokogiri::HTML(open(uri))
+      return unless uri
 
-          find_changelog(doc)
-        end
+      @changelog ||= begin
+        Bundler.ui.warn "Looking for a changelog in #{uri}"
+        doc = Nokogiri::HTML(open(uri))
+
+        find_changelog(doc)
 
       rescue OpenURI::HTTPError # Uri points to nothing
         Bundler.ui.error "Cannot find #{uri}"
         false
       rescue Errno::ETIMEDOUT # timeout
         Bundler.ui.error "#{uri} is down"
+        false
+      rescue ArgumentError => e # x-oauth-basic raises userinfo not supported. [RFC3986]
+        Bundler.ui.error e
         false
       end
     end

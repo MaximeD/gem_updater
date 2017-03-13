@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Fix:
+* parsing urls with `x-oauth-token`
+
 Development tools:
 * ADD gemnasium badge
 

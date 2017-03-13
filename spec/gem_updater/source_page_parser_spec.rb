@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe GemUpdater::SourcePageParser do
   describe '#changelog' do
-    subject do
-      GemUpdater::SourcePageParser.new(
-        url: 'https://github.com/fake_user/fake_gem', version: '0.2'
-      )
-    end
-
     context 'when gem is hosted on github' do
+      subject do
+        GemUpdater::SourcePageParser.new(
+          url: 'https://github.com/fake_user/fake_gem', version: '0.2'
+        )
+      end
+
       context 'when there is no changelog' do
         before do
           allow(subject).to receive(:open) { github_gem_without_changelog }
@@ -45,6 +45,19 @@ describe GemUpdater::SourcePageParser do
         it 'returns url of changelog with anchor to version' do
           expect(subject.changelog).to eq 'https://github.com/fake_user/fake_gem/blob/master/changelog.md#02'
         end
+      end
+    end
+
+    describe 'handling errors' do
+      context 'when url is not reachable' do
+        subject do
+          GemUpdater::SourcePageParser.new(
+            url: 'https://token:x-oauth-basic@github.com/fake_user/fake_gem',
+            version: '0.2'
+          ).changelog
+        end
+
+        it { is_expected.to be false }
       end
     end
   end
