@@ -1,4 +1,4 @@
-# master (unreleased)
+# v2.1.1 (June 04, 2017)
 
 Updates:
 * gems and dependencies
