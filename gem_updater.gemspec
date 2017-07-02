@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'bundler',   '~> 1.15'
   s.add_runtime_dependency 'json',      '~> 2.1'
-  s.add_runtime_dependency 'nokogiri',  '~> 1.7'
+  s.add_runtime_dependency 'nokogiri',  '~> 1.8'
 
   s.add_development_dependency 'rspec', '~> 3.6'
 
