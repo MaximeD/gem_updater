@@ -1,6 +1,6 @@
-# master (unreleased)
+# v2.1.2 (July 02, 2017)
 
-Updates
+Updates:
 * nokogiri to `1.8`
 
 # v2.1.1 (June 04, 2017)
