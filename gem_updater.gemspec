@@ -12,11 +12,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.1.0'
 
-  s.add_runtime_dependency 'bundler',   '~> 1.15'
+  s.add_runtime_dependency 'bundler',   '~> 1.16'
   s.add_runtime_dependency 'json',      '~> 2.1'
   s.add_runtime_dependency 'nokogiri',  '~> 1.8'
 
-  s.add_development_dependency 'rspec', '~> 3.6'
+  s.add_development_dependency 'rspec', '~> 3.7'
 
   s.executables << 'gem_update'
 end
