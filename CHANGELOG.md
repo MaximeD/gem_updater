@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Development tools:
+* add CI support for ruby 2.5.0
+
 # v2.1.3 (November 19, 2017)
 
 Updates:
