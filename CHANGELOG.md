@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Deprecations:
+* ruby 2.2 is now deprecated
+
 Development tools:
 * add CI support for ruby 2.5.0
 
