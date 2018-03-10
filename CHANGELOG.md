@@ -1,4 +1,4 @@
-# master (unreleased)
+# v3.0.0 (March 10, 2018)
 
 Deprecations:
 * ruby 2.2 is now deprecated
