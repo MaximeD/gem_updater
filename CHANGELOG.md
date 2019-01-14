@@ -3,6 +3,9 @@
 Updates:
 * gems and dependencies
 
+Development tools:
+* add CI support for ruby 2.6.0
+
 # v3.0.0 (March 10, 2018)
 
 Deprecations:
