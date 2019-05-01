@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'nokogiri'
 require 'open-uri'
 
 module GemUpdater
-
   # RubyGemsFetcher is a wrapper around rubygems API.
   class RubyGemsFetcher
-    HTTP_TOO_MANY_REQUESTS = '429'.freeze
+    HTTP_TOO_MANY_REQUESTS = '429'
     GEM_HOMEPAGES = %w[source_code_uri homepage_uri].freeze
 
     attr_reader :gem_name, :source
@@ -35,11 +36,10 @@ module GemUpdater
     def uri_from_rubygems
       return unless source.remotes.map(&:host).include?('rubygems.org')
 
-      if response = query_rubygems
-        response[
-          GEM_HOMEPAGES.find { |key| response[key] && !response[key].empty? }
-        ]
-      end
+      response = query_rubygems
+      return unless response
+
+      response[GEM_HOMEPAGES.find { |key| response[key] && !response[key].empty? }]
     end
 
     # Make the real query to rubygems
@@ -52,7 +52,7 @@ module GemUpdater
       # We may trigger too many requests, in which case give rubygems a break
       if e.io.status.include?(HTTP_TOO_MANY_REQUESTS)
         if (tries += 1) < 2
-          sleep 1 and retry
+          sleep 1 && retry
         end
       end
     end
@@ -60,6 +60,7 @@ module GemUpdater
     # Look if gem can be found in another remote
     #
     # @return [String|nil] uri of source code
+    # rubocop:disable Metrics/MethodLength
     def uri_from_other_sources
       uri = nil
       source.remotes.each do |remote|
@@ -70,24 +71,28 @@ module GemUpdater
               when 'rails-assets.org'
                 uri_from_railsassets
               else
-                Bundler.ui.error "Source #{remote} is not supported, feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
+                Bundler.ui.error "Source #{remote} is not supported, ' \
+                  'feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
               end
       end
 
       uri
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Ask rails-assets.org for source uri of gem.
     # API is at : https://rails-assets.org/packages/package_name
     #
     # @return [String|nil] uri of source code
     def uri_from_railsassets
-      if response = query_railsassets
-        response['url'].gsub(/^git/, 'http')
-      end
+      response = query_railsassets
+      return unless response
+
+      response['url'].gsub(/^git/, 'http')
     end
 
     # Make the real query to railsassets
+    # rubocop:disable Lint/HandleExceptions
     def query_railsassets
       JSON.parse(
         open(
@@ -99,5 +104,6 @@ module GemUpdater
       # with html (instead of json) containing a 500...
     rescue OpenURI::HTTPError
     end
+    # rubocop:enable Lint/HandleExceptions
   end
 end

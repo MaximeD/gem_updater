@@ -1,11 +1,15 @@
 # Unreleased
 
+Deprecations:
+* ruby 2.4 and below are now deprecated
+
 Updates:
 * gems and dependencies
 
 Development tools:
 * add CI support for ruby 2.6.0
 * add sleep stub in specs
+* add rubocop
 
 # v3.0.0 (March 10, 2018)
 
