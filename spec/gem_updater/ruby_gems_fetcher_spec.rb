@@ -16,6 +16,7 @@ describe GemUpdater::RubyGemsFetcher do
     context 'when gem exists on rubygems.org' do
       describe 'making too many requests' do
         before do
+          allow_any_instance_of(described_class).to receive(:sleep).and_return(true)
           allow(subject).to receive_message_chain(:open) do
             raise OpenURI::HTTPError.new('429', OpenStruct.new(status: ['429']))
           end

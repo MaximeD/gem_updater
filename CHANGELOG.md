@@ -5,6 +5,7 @@ Updates:
 
 Development tools:
 * add CI support for ruby 2.6.0
+* add sleep stub in specs
 
 # v3.0.0 (March 10, 2018)
 
