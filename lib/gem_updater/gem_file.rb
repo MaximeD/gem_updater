@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'bundler/cli'
 
 module GemUpdater
-
   # GemFile is responsible for handling `Gemfile`
   class GemFile
     attr_accessor :changes
@@ -21,21 +22,20 @@ module GemUpdater
     #
     # @return [Hash] gems for which there are differences.
     def compute_changes
-      get_spec_sets
+      spec_sets_diff!
 
       old_spec_set.each do |old_gem|
         updated_gem = new_spec_set.find { |new_gem| new_gem.name == old_gem.name }
+        next unless updated_gem && old_gem.version != updated_gem.version
 
-        if updated_gem && old_gem.version != updated_gem.version
-          fill_changes(old_gem, updated_gem)
-        end
+        fill_changes(old_gem, updated_gem)
       end
     end
 
     private
 
     # Get the two spec sets (before and after `bundle update`)
-    def get_spec_sets
+    def spec_sets_diff!
       @old_spec_set = spec_set
       reinitialize_spec_set!
       @new_spec_set = spec_set

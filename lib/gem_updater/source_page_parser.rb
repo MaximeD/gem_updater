@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'open-uri'
 
 module GemUpdater
-
   # SourcePageParser is responsible for parsing a source page where
   # the gem code is hosted.
   class SourcePageParser
+    extend Memoist
+
     HOSTS = {
       github: /github.com/,
       bitbucket: /bitbucket.org/,
@@ -29,23 +32,16 @@ module GemUpdater
     def changelog
       return unless uri
 
-      @changelog ||= begin
-        Bundler.ui.warn "Looking for a changelog in #{uri}"
-        doc = Nokogiri::HTML(open(uri))
-
-        find_changelog(doc)
-
-      rescue OpenURI::HTTPError # Uri points to nothing
-        Bundler.ui.error "Cannot find #{uri}"
-        false
-      rescue Errno::ETIMEDOUT # timeout
-        Bundler.ui.error "#{uri} is down"
-        false
-      rescue ArgumentError => e # x-oauth-basic raises userinfo not supported. [RFC3986]
-        Bundler.ui.error e
-        false
-      end
+      Bundler.ui.warn "Looking for a changelog in #{uri}"
+      find_changelog(Nokogiri::HTML(URI.open(uri)))
+    rescue OpenURI::HTTPError # Uri points to nothing
+      log_error("Cannot find #{uri}")
+    rescue Errno::ETIMEDOUT # timeout
+      log_error("#{uri} is down")
+    rescue ArgumentError => e # x-oauth-basic raises userinfo not supported. [RFC3986]
+      log_error(e)
     end
+    memoize :changelog
 
     private
 
@@ -55,15 +51,10 @@ module GemUpdater
     # @param url [String] the url to parse
     # @return [URI] valid URI
     def correct_uri(url)
-      return unless String === url && !url.empty?
+      return unless url.is_a?(String) && !url.empty?
 
       uri = URI(url)
-
-      if uri.scheme == 'http'
-        known_https(uri)
-      else
-        uri
-      end
+      uri.scheme == 'http' ? known_https(uri) : uri
     end
 
     # Some uris are not https, but we know they should be,
@@ -73,13 +64,13 @@ module GemUpdater
     # @param uri [URI::HTTP]
     # @return [URI::HTTPS|URI::HTTP]
     def known_https(uri)
-      case
-      when uri.host =~ HOSTS[:github]
+      case uri.host
+      when HOSTS[:github]
         # remove possible subdomain like 'wiki.github.com'
         URI "https://github.com#{uri.path}"
-      when uri.host =~ HOSTS[:bitbucket]
+      when HOSTS[:bitbucket]
         URI "https://#{uri.host}#{uri.path}"
-      when uri.host =~ HOSTS[:rubygems]
+      when HOSTS[:rubygems]
         URI "https://#{uri.host}#{uri.path}"
       else
         uri
@@ -115,10 +106,15 @@ module GemUpdater
       MARKUP_FILES.include?(File.extname(file_name))
     end
 
+    def log_error(error_message)
+      Bundler.ui.error error_message
+      false
+    end
+
     # GitHubParser is responsible for parsing source code
     # hosted on github.com.
     class GitHubParser < SourcePageParser
-      BASE_URL = 'https://github.com'.freeze
+      BASE_URL = 'https://github.com'
 
       attr_reader :doc, :version
 
@@ -134,17 +130,16 @@ module GemUpdater
       # @return [String] the URL of changelog
       def changelog
         url = find_changelog_link
+        return unless url
 
-        if url
-          full_url = BASE_URL + url
+        full_url = BASE_URL + url
 
-          if changelog_may_contain_anchor?(full_url)
-            anchor = find_anchor(full_url)
-            full_url += anchor if anchor
-          end
-
-          full_url
+        if changelog_may_contain_anchor?(full_url)
+          anchor = find_anchor(full_url)
+          full_url += anchor if anchor
         end
+
+        full_url
       end
 
       private
@@ -165,12 +160,12 @@ module GemUpdater
       # @param url [String] url of changelog
       # @return [String, nil] anchor's href
       def find_anchor(url)
-        changelog_page = Nokogiri::HTML(open(url))
+        changelog_page = Nokogiri::HTML(URI.open(url))
         anchor = changelog_page.css(%(a.anchor)).find do |element|
           element.attr('href').match(version.delete('.'))
         end
 
-        anchor.attr('href') if anchor
+        anchor&.attr('href')
       end
     end
   end

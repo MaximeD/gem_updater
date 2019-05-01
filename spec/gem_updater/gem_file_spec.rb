@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe GemUpdater::GemFile do
@@ -42,14 +44,14 @@ describe GemUpdater::GemFile do
 
   describe '#compute_changes' do
     before do
-      allow(subject).to receive(:get_spec_sets)
+      allow(subject).to receive(:spec_sets_diff!)
       allow(subject).to receive(:old_spec_set) { old_spec_set }
       allow(subject).to receive(:new_spec_set) { new_spec_set }
       subject.compute_changes
     end
 
     it 'gets specs sets' do
-      expect(subject).to have_received(:get_spec_sets)
+      expect(subject).to have_received(:spec_sets_diff!)
     end
 
     it 'skips gems that were not updated' do
@@ -63,10 +65,10 @@ describe GemUpdater::GemFile do
     end
   end
 
-  describe '#get_spec_sets' do
+  describe '#spec_sets_diff!' do
     before do
       allow(subject).to receive(:reinitialize_spec_set!)
-      subject.send(:get_spec_sets)
+      subject.send(:spec_sets_diff!)
     end
 
     it 'gets specs spet' do

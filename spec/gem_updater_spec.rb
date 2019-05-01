@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe GemUpdater::Updater do
@@ -65,15 +67,14 @@ describe GemUpdater::Updater do
     end
 
     it 'outputs changes' do
-      expect(Bundler.ui).to have_received(:info).with(<<CHANGELOG
-* fake_gem_1 1.0 → 1.1
-[changelog](fake_gem_1_url)
+      expect(Bundler.ui).to have_received(:info).with(<<~CHANGELOG)
+        * fake_gem_1 1.0 → 1.1
+        [changelog](fake_gem_1_url)
 
-* fake_gem_2 0.4 → 0.4.2
-[changelog](fake_gem_2_url)
+        * fake_gem_2 0.4 → 0.4.2
+        [changelog](fake_gem_2_url)
 
-CHANGELOG
-                                                     )
+      CHANGELOG
     end
   end
 
