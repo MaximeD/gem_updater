@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     gem_updater (3.0.0)
-      bundler (~> 1.16)
+      bundler (< 3)
       json (~> 2.1)
       memoist (~> 0.16.0)
       nokogiri (~> 1.8)
@@ -66,4 +66,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.17.2
+   2.0.2
