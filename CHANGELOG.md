@@ -1,9 +1,10 @@
-# Unreleased
+# v4.0.0 (November 03, 2019)
 
 Deprecations:
 * ruby 2.4 and below are now deprecated
 
 Updates:
+* `bundler` to version 2 (@anthony-robin)
 * gems and dependencies
 
 Development tools:
