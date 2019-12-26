@@ -1,3 +1,8 @@
+# master (unreleased)
+
+Enhancement:
+* add rubocop performance
+
 # v4.0.0 (November 03, 2019)
 
 Deprecations:
