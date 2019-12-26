@@ -92,7 +92,7 @@ module GemUpdater
     end
 
     # Make the real query to railsassets
-    # rubocop:disable Lint/HandleExceptions
+    # rubocop:disable Lint/SuppressedException
     def query_railsassets
       JSON.parse(
         open(
@@ -104,6 +104,6 @@ module GemUpdater
       # with html (instead of json) containing a 500...
     rescue OpenURI::HTTPError
     end
-    # rubocop:enable Lint/HandleExceptions
+    # rubocop:enable Lint/SuppressedException
   end
 end

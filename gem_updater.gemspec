@@ -21,7 +21,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'nokogiri', '~> 1.8'
 
   s.add_development_dependency 'rspec',   '~> 3.7'
-  s.add_development_dependency 'rubocop', '~> 0.68.1'
+  s.add_development_dependency 'rubocop', '~> 0.78'
+  s.add_development_dependency 'rubocop-performance', '~> 1.5.2'
 
   s.executables << 'gem_update'
 end

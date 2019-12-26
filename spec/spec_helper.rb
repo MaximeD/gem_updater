@@ -7,7 +7,7 @@ require 'simplecov'
 Codacy::Reporter.start
 SimpleCov.start
 
-Dir["#{File.expand_path('support', __dir__)}/*.rb"].each { |file| require file }
+Dir["#{File.expand_path('support', __dir__)}/*.rb"].sort.each { |file| require file }
 
 RSpec.configure do |config|
   config.include Spec::Helpers
