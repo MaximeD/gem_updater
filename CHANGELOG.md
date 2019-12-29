@@ -1,6 +1,7 @@
 # master (unreleased)
 
 Enhancement:
+* add support for ruby 2.7.0
 * add rubocop performance
 
 # v4.0.0 (November 03, 2019)
