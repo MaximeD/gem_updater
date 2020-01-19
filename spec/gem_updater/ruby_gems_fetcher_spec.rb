@@ -12,21 +12,21 @@ describe GemUpdater::RubyGemsFetcher do
 
   describe '#source_uri' do
     before do
-      allow(subject).to receive_message_chain(:open, :read) { source_uri.to_json }
+      allow(URI).to receive_message_chain(:open, :read) { source_uri.to_json }
     end
 
     context 'when gem exists on rubygems.org' do
       describe 'making too many requests' do
         before do
           allow_any_instance_of(described_class).to receive(:sleep).and_return(true)
-          allow(subject).to receive_message_chain(:open) do
+          allow(URI).to receive_message_chain(:open) do
             raise OpenURI::HTTPError.new('429', OpenStruct.new(status: ['429']))
           end
           subject.source_uri
         end
 
         it 'tries again' do
-          expect(subject).to have_received(:open).twice
+          expect(URI).to have_received(:open).twice
         end
       end
 
@@ -130,7 +130,7 @@ describe GemUpdater::RubyGemsFetcher do
 
           context 'when gem is on rails-assets' do
             before do
-              allow(subject).to receive_message_chain(:open, :read) do
+              allow(URI).to receive_message_chain(:open, :read) do
                 {
                   url: 'git://fake.com/gem_name'
                 }.to_json
@@ -144,7 +144,7 @@ describe GemUpdater::RubyGemsFetcher do
 
           context 'when gem is not on rails-assets' do
             before do
-              allow(subject).to receive_message_chain(:open, :read) do
+              allow(URI).to receive_message_chain(:open, :read) do
                 "<title>We're sorry, but something went wrong (500)</title>"
               end
             end
