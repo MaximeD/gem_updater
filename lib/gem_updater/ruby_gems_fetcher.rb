@@ -29,6 +29,14 @@ module GemUpdater
 
     private
 
+    # Parse JSON from a remote url.
+    #
+    # @param url [String] remote url
+    # @return [Hash] parsed JSON
+    def parse_remote_json(url)
+      JSON.parse(URI.open(url).read)
+    end
+
     # Ask rubygems.org for source uri of gem.
     # See API: http://guides.rubygems.org/rubygems-org-api/#gem-methods
     #
@@ -47,7 +55,7 @@ module GemUpdater
     #
     # @param tries [Integer|nil] (optional) how many times we tried
     def query_rubygems(tries = 0)
-      JSON.parse(open("https://rubygems.org/api/v1/gems/#{gem_name}.json").read)
+      parse_remote_json("https://rubygems.org/api/v1/gems/#{gem_name}.json")
     rescue OpenURI::HTTPError => e
       # We may trigger too many requests, in which case give rubygems a break
       if e.io.status.include?(HTTP_TOO_MANY_REQUESTS)
@@ -94,11 +102,7 @@ module GemUpdater
     # Make the real query to railsassets
     # rubocop:disable Lint/SuppressedException
     def query_railsassets
-      JSON.parse(
-        open(
-          "https://rails-assets.org/packages/#{gem_name.gsub(/rails-assets-/, '')}"
-        ).read
-      )
+      parse_remote_json("https://rails-assets.org/packages/#{gem_name.gsub(/rails-assets-/, '')}")
     rescue JSON::ParserError
       # if gem is not found, rails-assets returns a 200
       # with html (instead of json) containing a 500...
