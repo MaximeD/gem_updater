@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Updates:
+* update gems
+
 Enhancement:
 * add support for ruby 2.7.0
 * add rubocop performance
