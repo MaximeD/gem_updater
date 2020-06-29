@@ -149,7 +149,7 @@ module GemUpdater
       # @return [String, nil] url of changelog
       def find_changelog_link
         changelog_names.find do |name|
-          node = doc.at_css(%(table.files .content a[title^="#{name}"]))
+          node = doc.at_css(%([aria-labelledby="files"] a[title^="#{name}"]))
 
           break node.attr('href') if node
         end
