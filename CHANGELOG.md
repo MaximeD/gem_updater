@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v4.2.0 (June 29, 2020)
+
 Fix:
 * changelogs not found on github since they revamped their UI
 
