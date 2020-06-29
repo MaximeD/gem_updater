@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Fix:
+* changelogs not found on github since they revamped their UI
+
 Updates:
 * update gems
 
