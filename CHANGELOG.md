@@ -1,9 +1,16 @@
 # master (unreleased)
 
+# v4.3.0 (June 29, 2020)
+
 Fix:
 * changelogs not found on github since they revamped their UI
 
+Enhancement:
+* add support for ruby 2.7.0
+* add rubocop performance
+
 Updates:
+* `bundler` to version 2 (@anthony-robin)
 * update gems
 
 # v4.1.0 (January 19, 2020)
