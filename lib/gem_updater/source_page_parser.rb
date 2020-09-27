@@ -120,10 +120,12 @@ module GemUpdater
 
       # @param doc [Nokogiri::XML::Element] document of source page
       # @param version [String] version of gem
+      # rubocop:disable Lint/MissingSuper
       def initialize(doc, version)
         @doc     = doc
         @version = version
       end
+      # rubocop:enable Lint/MissingSuper
 
       # Finds url of changelog.
       #
