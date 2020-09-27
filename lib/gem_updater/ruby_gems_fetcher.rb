@@ -59,9 +59,8 @@ module GemUpdater
     rescue OpenURI::HTTPError => e
       # We may trigger too many requests, in which case give rubygems a break
       if e.io.status.include?(HTTP_TOO_MANY_REQUESTS)
-        if (tries += 1) < 2
-          sleep 1 && retry
-        end
+        tries += 1
+        sleep 1 && retry if tries < 2
       end
     end
 
