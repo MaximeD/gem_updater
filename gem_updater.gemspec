@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = 'Updates the gems of your Gemfile ' \
                   'and fetches the links pointing to where their changelogs are'
   s.authors     = ['Maxime Demolin']
-  s.email       = 'akbarova.armia@gmail.com'
+  s.email       = 'maxime_dev@demol.in'
   s.files       = Dir['{lib}/**/*']
   s.homepage    = 'https://github.com/MaximeD/gem_updater'
   s.license     = 'MIT'
