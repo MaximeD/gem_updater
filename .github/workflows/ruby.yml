@@ -1,0 +1,22 @@
+name: Ruby
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: ['2.5', '2.6', '2.7', '3.0']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: bundle install
+    - name: Run tests
+      run: bundle exec rspec
+    - name: Run linter
+      run: bundle exec rubocop
