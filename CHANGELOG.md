@@ -1,5 +1,10 @@
 # master (unreleased)
 
+# v4.4.0 (January 17, 2021)
+
+Fix:
+* uninitialized constant GemUpdater::Updater::ERB
+
 Updates:
 * gems
 
