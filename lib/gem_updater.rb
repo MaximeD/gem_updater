@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'erb'
 require 'memoist'
 require 'gem_updater/gem_file'
 require 'gem_updater/ruby_gems_fetcher'
