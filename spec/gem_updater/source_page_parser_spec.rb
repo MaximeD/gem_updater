@@ -6,7 +6,7 @@ describe GemUpdater::SourcePageParser do
   describe '#changelog' do
     subject(:changelog) { parser.changelog }
 
-    let(:parser) { described_class.new(url: url, version: '2.1.1') }
+    let(:parser) { described_class.new(url: url, version: '1.9.1') }
 
     context 'when gem is hosted on github' do
       context 'when there is no changelog',
@@ -28,9 +28,9 @@ describe GemUpdater::SourcePageParser do
 
       context 'when changelog may contain anchor',
               vcr: { cassette_name: 'github/changelog_with_anchor' } do
-        let(:url) { 'https://github.com/MaximeD/gem_updater' }
+        let(:url) { 'https://github.com/rubocop-hq/rubocop' }
         let(:expected_changelog) do
-          'https://github.com/MaximeD/gem_updater/blob/master/CHANGELOG.md#v211-june-04-2017'
+          'https://github.com/rubocop-hq/rubocop/blob/master/CHANGELOG.md#191-2021-02-01'
         end
 
         it 'returns url of changelog with anchor to version' do

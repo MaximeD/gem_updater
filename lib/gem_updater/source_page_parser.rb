@@ -147,14 +147,14 @@ module GemUpdater
       private
 
       # Find which link corresponds to changelog.
+      # Last one is taken as files come after directories. So if there is a directory plus a file
+      # matching a changelog name, we ensure file is preferred.
       #
       # @return [String, nil] url of changelog
       def find_changelog_link
-        changelog_names.find do |name|
-          node = doc.at_css(%([aria-labelledby="files"] a[title^="#{name}"]))
-
-          break node.attr('href') if node
-        end
+        changelog_names.map do |name|
+          doc.at_css(%([aria-labelledby="files"] a[title^="#{name}"]))
+        end.compact.last&.attr('href')
       end
 
       # Looks into document to find it there is an anchor to new gem version.
