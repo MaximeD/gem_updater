@@ -2,8 +2,8 @@
 
 Gem::Specification.new do |s|
   s.name        = 'gem_updater'
-  s.version     = '4.4.0'
-  s.date        = '2021-01-17'
+  s.version     = '4.4.1'
+  s.date        = '2021-02-10'
   s.summary     = 'Update your gems and find their changelogs'
   s.description = 'Updates the gems of your Gemfile ' \
                   'and fetches the links pointing to where their changelogs are'
