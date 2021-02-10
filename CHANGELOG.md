@@ -2,6 +2,10 @@
 
 Fix:
 * take changelog file instead of directory if both are present (which is the case for rubocop for instance)
+
+Updates:
+* gems
+
 # v4.4.0 (January 17, 2021)
 
 Fix:

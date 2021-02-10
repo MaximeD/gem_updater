@@ -34,7 +34,7 @@ module GemUpdater
     # @param url [String] remote url
     # @return [Hash] parsed JSON
     def parse_remote_json(url)
-      JSON.parse(URI.open(url).read)
+      JSON.parse(URI.parse(url).open.read)
     end
 
     # Ask rubygems.org for source uri of gem.
@@ -67,25 +67,18 @@ module GemUpdater
     # Look if gem can be found in another remote
     #
     # @return [String|nil] uri of source code
-    # rubocop:disable Metrics/MethodLength
     def uri_from_other_sources
-      uri = nil
-      source.remotes.each do |remote|
-        break if uri
-
-        uri = case remote.host
-              when 'rubygems.org' then next # already checked
-              when 'rails-assets.org'
-                uri_from_railsassets
-              else
-                Bundler.ui.error "Source #{remote} is not supported, ' \
-                  'feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
-              end
+      source.remotes.find do |remote|
+        case remote.host
+        when 'rubygems.org' then next # already checked
+        when 'rails-assets.org'
+          return uri_from_railsassets
+        else
+          Bundler.ui.error "Source #{remote} is not supported, ' \
+            'feel free to open a PR or an issue on https://github.com/MaximeD/gem_updater"
+        end
       end
-
-      uri
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Ask rails-assets.org for source uri of gem.
     # API is at : https://rails-assets.org/packages/package_name

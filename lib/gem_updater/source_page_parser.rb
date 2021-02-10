@@ -33,7 +33,7 @@ module GemUpdater
       return unless uri
 
       Bundler.ui.warn "Looking for a changelog in #{uri}"
-      find_changelog(Nokogiri::HTML(URI.open(uri)))
+      find_changelog(Nokogiri::HTML(uri.open))
     rescue OpenURI::HTTPError # Uri points to nothing
       log_error("Cannot find #{uri}")
     rescue Errno::ETIMEDOUT # timeout
@@ -53,7 +53,7 @@ module GemUpdater
     def correct_uri(url)
       return unless url.is_a?(String) && !url.empty?
 
-      uri = URI(url)
+      uri = URI.parse(url)
       uri.scheme == 'http' ? known_https(uri) : uri
     end
 
@@ -68,9 +68,7 @@ module GemUpdater
       when HOSTS[:github]
         # remove possible subdomain like 'wiki.github.com'
         URI "https://github.com#{uri.path}"
-      when HOSTS[:bitbucket]
-        URI "https://#{uri.host}#{uri.path}"
-      when HOSTS[:rubygems]
+      when HOSTS[:bitbucket], HOSTS[:rubygems]
         URI "https://#{uri.host}#{uri.path}"
       else
         uri
@@ -162,7 +160,7 @@ module GemUpdater
       # @param url [String] url of changelog
       # @return [String, nil] anchor's href
       def find_anchor(url)
-        changelog_page = Nokogiri::HTML(URI.open(url))
+        changelog_page = Nokogiri::HTML(URI.parse(url).open)
         anchor = changelog_page.css(%(a.anchor)).find do |element|
           element.attr('href').match(version.delete('.'))
         end
