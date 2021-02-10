@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'memoist',  '~> 0.16.0'
   s.add_runtime_dependency 'nokogiri', '~> 1.8'
 
+  s.add_development_dependency 'pry', '~> 0.14'
   s.add_development_dependency 'rspec',   '~> 3.7'
   s.add_development_dependency 'rubocop', '~> 0.78'
   s.add_development_dependency 'rubocop-performance', '~> 1.5.2'
