@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v4.4.1 (February 02, 2021)
+
 Fix:
 * take changelog file instead of directory if both are present (which is the case for rubocop for instance)
 
