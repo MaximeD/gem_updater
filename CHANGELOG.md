@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v4.4.2 (July 14, 2021)
+
 Updates:
 * gems
 
