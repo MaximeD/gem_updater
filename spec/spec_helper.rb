@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-require 'codacy-coverage'
 require 'gem_updater'
 require 'simplecov'
+require 'simplecov-cobertura'
 
-Codacy::Reporter.start
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
 SimpleCov.start
 
 Dir["#{File.expand_path('support', __dir__)}/*.rb"].sort.each { |file| require file }
