@@ -96,7 +96,7 @@ describe GemUpdater::GemFile do
     it 'reinitializes locked gems' do
       expect(Bundler).to have_received(
         :remove_instance_variable
-      ).with('@locked_gems')
+      ).with(:@locked_gems)
     end
   end
 end
