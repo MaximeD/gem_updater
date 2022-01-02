@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Enhancement:
+* add support for ruby 3.1
+
 # v4.4.2 (July 14, 2021)
 
 Updates:

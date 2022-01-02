@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock', '~> 3.8'
 
   s.executables << 'gem_update'
+  s.metadata['rubygems_mfa_required'] = 'true'
 end

@@ -93,7 +93,7 @@ describe GemUpdater::Updater do
 
   describe '#find_source' do
     context 'when it is Bundler::Source::Rubygems' do
-      let(:ruby_gems_fetcher) { OpenStruct.new(source_uri: 'fake_gem_url') }
+      let(:ruby_gems_fetcher) { double(source_uri: 'fake_gem_url') }
 
       before do
         allow(ruby_gems_fetcher).to receive(:source_uri)
@@ -107,7 +107,7 @@ describe GemUpdater::Updater do
     end
 
     context 'when it is Bundler::Source::Git' do
-      let(:git_source) { OpenStruct.new(uri: 'git://fakeurl.com/gem.git') }
+      let(:git_source) { double(uri: 'git://fakeurl.com/gem.git') }
 
       before do
         allow(Bundler::Source::Git).to receive(:===) { true }

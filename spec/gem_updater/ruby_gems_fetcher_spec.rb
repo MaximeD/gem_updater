@@ -6,7 +6,7 @@ describe GemUpdater::RubyGemsFetcher do
   subject(:ruby_gems_fetcher) do
     GemUpdater::RubyGemsFetcher.new(
       'gem_name',
-      OpenStruct.new(remotes: remotes)
+      double(remotes: remotes)
     )
   end
 
@@ -25,7 +25,7 @@ describe GemUpdater::RubyGemsFetcher do
         before do
           allow(ruby_gems_fetcher).to receive(:sleep)
           allow(ruby_gems_fetcher).to receive(:parse_remote_json)
-            .and_raise(OpenURI::HTTPError.new('429', OpenStruct.new(status: ['429'])))
+            .and_raise(OpenURI::HTTPError.new('429', double(status: ['429'])))
         end
 
         it 'tries again' do

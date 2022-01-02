@@ -40,8 +40,14 @@ module GemUpdater
     # Format the diff to get human readable information
     # on the gems that were updated.
     def format_diff
+      erb = if RUBY_VERSION.to_f < 3.0
+              ERB.new(template, nil, '<>')
+            else
+              ERB.new(template, trim_mode: '<>')
+            end
+
       gemfile.changes.map do |gem, details|
-        ERB.new(template, nil, '<>').result(binding)
+        erb.result(binding)
       end
     end
 
