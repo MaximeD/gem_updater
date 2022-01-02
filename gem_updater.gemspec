@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'gem_updater'
-  s.version     = '4.4.2'
+  s.version     = '4.5.0'
   s.summary     = 'Update your gems and find their changelogs'
   s.description = 'Updates the gems of your Gemfile ' \
                   'and fetches the links pointing to where their changelogs are'
