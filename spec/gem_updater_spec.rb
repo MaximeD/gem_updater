@@ -69,9 +69,11 @@ describe GemUpdater::Updater do
     it 'outputs changes' do
       expect(Bundler.ui).to have_received(:info).with(<<~CHANGELOG)
         * fake_gem1 1.0 → 1.1
+        [fake_gem1 diffend](https://my.diffend.io/gems/fake_gem1/1.0/1.1)
         [changelog](fake_gem_1_url)
 
         * fake_gem2 0.4 → 0.4.2
+        [fake_gem2 diffend](https://my.diffend.io/gems/fake_gem2/0.4/0.4.2)
         [changelog](fake_gem_2_url)
 
       CHANGELOG
@@ -83,8 +85,8 @@ describe GemUpdater::Updater do
 
     it 'contains changes' do
       [
-        "* fake_gem1 1.0 → 1.1\n[changelog](fake_gem_1_url)\n\n",
-        "* fake_gem2 0.4 → 0.4.2\n[changelog](fake_gem_2_url)\n\n"
+        "* fake_gem1 1.0 → 1.1\n[fake_gem1 diffend](https://my.diffend.io/gems/fake_gem1/1.0/1.1)\n[changelog](fake_gem_1_url)\n\n",
+        "* fake_gem2 0.4 → 0.4.2\n[fake_gem2 diffend](https://my.diffend.io/gems/fake_gem2/0.4/0.4.2)\n[changelog](fake_gem_2_url)\n\n"
       ].each do |message|
         expect(subject.format_diff).to include message
       end
