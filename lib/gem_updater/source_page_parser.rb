@@ -150,9 +150,9 @@ module GemUpdater
       #
       # @return [String, nil] url of changelog
       def find_changelog_link
-        changelog_names.map do |name|
+        changelog_names.filter_map do |name|
           doc.at_css(%([aria-labelledby="files"] a[title^="#{name}"]))
-        end.compact.last&.attr('href')
+        end.last&.attr('href')
       end
 
       # Looks into document to find it there is an anchor to new gem version.
@@ -161,11 +161,9 @@ module GemUpdater
       # @return [String, nil] anchor's href
       def find_anchor(url)
         changelog_page = Nokogiri::HTML(URI.parse(url).open)
-        anchor = changelog_page.css(%(a.anchor)).find do |element|
+        changelog_page.css(%(a.anchor)).find do |element|
           element.attr('href').match(version.delete('.'))
-        end
-
-        anchor&.attr('href')
+        end&.attr('href')
       end
     end
   end
