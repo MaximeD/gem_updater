@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'lib/gem_updater/version'
+
 Gem::Specification.new do |s|
   s.name        = 'gem_updater'
-  s.version     = '4.5.0'
+  s.version     = GemUpdater::VERSION
   s.summary     = 'Update your gems and find their changelogs'
   s.description = 'Updates the gems of your Gemfile ' \
                   'and fetches the links pointing to where their changelogs are'

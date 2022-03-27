@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Development tools:
+* add `version` file
+
 Updates:
 * gems
 
