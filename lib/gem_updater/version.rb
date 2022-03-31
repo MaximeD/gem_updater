@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module GemUpdater
-  VERSION = '4.5.0'
+  VERSION = '5.0.0'
 end
