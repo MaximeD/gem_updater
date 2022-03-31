@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v5.0.0 (March 31, 2022)
+
 Development tools:
 * add `version` file
 
