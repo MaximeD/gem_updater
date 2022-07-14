@@ -20,3 +20,9 @@ jobs:
       run: bundle exec rspec
     - name: Run linter
       run: bundle exec rubocop
+
+    - name: Report coverage
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: coverage/coverage.xml
