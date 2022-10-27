@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Updates:
+* gems
+
 # v5.0.0 (March 31, 2022)
 
 Development tools:
@@ -9,7 +12,7 @@ Updates:
 * gems
 
 Deprecated:
-- support for ruby `2.5` and `2.6`
+* support for ruby `2.5` and `2.6`
 
 # v4.5.0 (January 2, 2022)
 
