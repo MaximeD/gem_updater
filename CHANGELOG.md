@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v5.1.0 (December 26, 2022)
+
 Enhancement:
 * add support for ruby 3.2
 
