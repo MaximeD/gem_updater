@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Enhancement:
+* add support for ruby 3.2
+
 Updates:
 * gems
 
