@@ -40,7 +40,7 @@ module GemUpdater
     # Format the diff to get human readable information
     # on the gems that were updated.
     def format_diff
-      erb = ERB.new(template, trim_mode: '<>')
+      erb = ERB.new(template.force_encoding('UTF-8'), trim_mode: '<>')
 
       gemfile.changes.map do |gem, details|
         erb.result(binding)
