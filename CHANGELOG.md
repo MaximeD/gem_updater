@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v6.0.0 (April 5, 2023)
+
 Deprecated:
 * support for ruby `2.7`
 
