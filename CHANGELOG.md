@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Deprecated:
+* support for ruby `2.7`
+
 # v5.1.0 (December 26, 2022)
 
 Enhancement:
@@ -52,10 +55,6 @@ Updates:
 
 Fix:
 * changelogs not found on github since they revamped their UI
-
-Enhancement:
-* add support for ruby 2.7.0
-* add rubocop performance
 
 Updates:
 * `bundler` to version 2 (@anthony-robin)
