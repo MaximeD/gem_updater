@@ -6,6 +6,9 @@ Deprecated:
 Updates:
 * gems
 
+Fix:
+* encoding compatibility between template and changes
+
 # v5.1.0 (December 26, 2022)
 
 Enhancement:
