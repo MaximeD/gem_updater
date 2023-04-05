@@ -3,6 +3,9 @@
 Deprecated:
 * support for ruby `2.7`
 
+Updates:
+* gems
+
 # v5.1.0 (December 26, 2022)
 
 Enhancement:
