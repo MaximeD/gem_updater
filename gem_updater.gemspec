@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/MaximeD/gem_updater'
   s.license     = 'MIT'
 
-  s.required_ruby_version = '>= 2.7.0'
+  s.required_ruby_version = '>= 3.0.0'
 
   s.add_runtime_dependency 'bundler',  '< 3'
   s.add_runtime_dependency 'json',     '~> 2.6'
