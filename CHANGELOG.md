@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v6.0.1 (April 14, 2023)
+
 Deprecated:
 * ruby 3.0 is the minimum required ruby version
 
