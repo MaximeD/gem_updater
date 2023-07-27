@@ -161,9 +161,12 @@ module GemUpdater
       # @return [String, nil] anchor's href
       def find_anchor(url)
         changelog_page = Nokogiri::HTML(URI.parse(url).open)
-        changelog_page.css(%(a.anchor)).find do |element|
+        anchor = changelog_page.xpath('//a[contains(@class, "anchor")]').find do |element|
           element.attr('href').match(version.delete('.'))
-        end&.attr('href')
+        end
+        return unless anchor
+
+        anchor.attr('href').gsub(%(\\"), '')
       end
     end
   end
