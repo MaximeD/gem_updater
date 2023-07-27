@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Fixes:
+* GitHub changelog link anchors no longer found #162
+
 # v6.0.1 (April 14, 2023)
 
 Deprecated:
