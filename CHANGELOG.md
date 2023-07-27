@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v6.0.2 (July 27, 2023)
+
 Fixes:
 * GitHub changelog link anchors no longer found #162
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gem_updater (6.0.1)
+    gem_updater (6.0.2)
       bundler (< 3)
       json (~> 2.6)
       memoist (~> 0.16.2)
