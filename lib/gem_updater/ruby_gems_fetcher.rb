@@ -94,7 +94,7 @@ module GemUpdater
     # Make the real query to railsassets
     # rubocop:disable Lint/SuppressedException
     def query_railsassets
-      parse_remote_json("https://rails-assets.org/packages/#{gem_name.gsub(/rails-assets-/, '')}")
+      parse_remote_json("https://rails-assets.org/packages/#{gem_name.gsub('rails-assets-', '')}")
     rescue JSON::ParserError
       # if gem is not found, rails-assets returns a 200
       # with html (instead of json) containing a 500...

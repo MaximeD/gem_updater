@@ -3,6 +3,9 @@
 Fixes:
 * GitHub changelog link anchors no longer found #162
 
+Updates:
+* gems
+
 # v6.0.1 (April 14, 2023)
 
 Deprecated:
