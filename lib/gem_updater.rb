@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
 require 'erb'
-require 'memoist'
-require 'gem_updater/gem_file'
+require 'gem_updater/changelog_parser'
+require 'gem_updater/gemfile'
 require 'gem_updater/ruby_gems_fetcher'
-require 'gem_updater/source_page_parser'
 
 # Base lib.
 module GemUpdater
   # Updater's main responsability is to fill changes
   # happened before and after update of `Gemfile`, and then format them.
   class Updater
-    extend Memoist
+    RUBYGEMS_SOURCE_NAME = 'rubygems repository https://rubygems.org/'
 
     attr_accessor :gemfile
 
     def initialize
-      @gemfile = GemUpdater::GemFile.new
+      @gemfile = GemUpdater::Gemfile.new
     end
 
     # Update process.
@@ -52,35 +51,23 @@ module GemUpdater
     # For each gem, retrieve its changelog
     def fill_changelogs
       [].tap do |threads|
-        gemfile.changes.each do |gem_name, details|
-          threads << Thread.new { retrieve_gem_changes(gem_name, details) }
+        gemfile.changes.each do |gem_changes, details|
+          threads << Thread.new { retrieve_changelog(gem_changes, details) }
         end
       end.each(&:join)
     end
 
-    # Find where is hosted the source of a gem
-    #
-    # @param gem [String] the name of the gem
-    # @param source [Bundler::Source] gem's source
-    # @return [String] url where gem is hosted
-    def find_source(gem, source)
-      case source
-      when Bundler::Source::Rubygems
-        GemUpdater::RubyGemsFetcher.new(gem, source).source_uri
-      when Bundler::Source::Git
-        source.uri.gsub(/^git/, 'http').chomp('.git')
-      end
-    end
+    # Get the changelog URL.
+    def retrieve_changelog(gem_name, details)
+      return unless details[:source].name == RUBYGEMS_SOURCE_NAME
 
-    def retrieve_gem_changes(gem_name, details)
-      source_uri = find_source(gem_name, details[:source])
-      return unless source_uri
+      changelog_uri = RubyGemsFetcher.new(gem_name).changelog_uri
 
-      source_page = GemUpdater::SourcePageParser.new(
-        url: source_uri, version: details[:versions][:new]
-      )
+      return unless changelog_uri
 
-      gemfile.changes[gem_name][:changelog] = source_page.changelog if source_page.changelog
+      changelog = ChangelogParser
+                  .new(uri: changelog_uri, version: details.dig(:versions, :new)).changelog
+      gemfile.changes[gem_name][:changelog] = changelog&.to_s
     end
 
     # Get the template for gem's diff.
@@ -92,6 +79,5 @@ module GemUpdater
     rescue Errno::ENOENT
       File.read(File.expand_path('../lib/gem_updater_template.erb', __dir__))
     end
-    memoize :template
   end
 end

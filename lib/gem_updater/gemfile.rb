@@ -4,8 +4,8 @@ require 'bundler'
 require 'bundler/cli'
 
 module GemUpdater
-  # GemFile is responsible for handling `Gemfile`
-  class GemFile
+  # Gemfile is responsible for handling `Gemfile`
+  class Gemfile
     attr_accessor :changes
     attr_reader :old_spec_set, :new_spec_set
 

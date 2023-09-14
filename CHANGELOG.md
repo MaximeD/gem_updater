@@ -1,5 +1,12 @@
 # master (unreleased)
 
+Changed:
+* know rely on rubygems metadata to get the changelog uri.
+  It means that for any gem not hosted on rubygems, the changelog won’t be found.
+
+Deprecated:
+* [rails-assets](https://rails-assets.org/#/) support
+
 Development tools:
 * add `.ruby-version``
 * add `Makefile`

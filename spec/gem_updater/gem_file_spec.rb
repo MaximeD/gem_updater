@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe GemUpdater::GemFile do
-  subject(:gemfile) { GemUpdater::GemFile.new }
+describe GemUpdater::Gemfile do
+  subject(:gemfile) { GemUpdater::Gemfile.new }
   let(:old_spec_set) do
     [
       Bundler::LazySpecification.new(

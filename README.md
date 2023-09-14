@@ -59,6 +59,14 @@ By default, diff for your gems will look like the following:
 You can change it if you like by writing you own template `.gem_updater_template.erb` in your home directory.
 [Look at default template](lib/gem_updater_template.erb) for an example on how to do it.
 
+## Troubleshooting
+
+### Changelog not found?
+
+This project relies on the gem’s metadata to find the changelog url.
+If a changelog was not found, check if the gem’s authors declared its uri in its gemspec,
+like [here](https://github.com/thoughtbot/factory_bot/blob/8f4f899305be5a09cee206876eb8d346cf6a0dcb/factory_bot.gemspec#L26).
+
 ## Contributing
 
 PRs are always welcome!
