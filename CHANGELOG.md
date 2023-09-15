@@ -1,5 +1,10 @@
 # master (unreleased)
 
+# v6.1.0 (September 15, 2023)
+
+Adds:
+* gemspec metadata
+
 # v6.0.2 (July 27, 2023)
 
 Fixes:
