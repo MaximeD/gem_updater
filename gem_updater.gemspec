@@ -2,6 +2,8 @@
 
 require_relative 'lib/gem_updater/version'
 
+REPOSITORY_URI = 'https://github.com/MaximeD/gem_updater'
+
 Gem::Specification.new do |s|
   s.name        = 'gem_updater'
   s.version     = GemUpdater::VERSION
@@ -11,8 +13,14 @@ Gem::Specification.new do |s|
   s.authors     = ['Maxime Demolin']
   s.email       = 'maxime_dev@demol.in'
   s.files       = Dir['{lib}/**/*']
-  s.homepage    = 'https://github.com/MaximeD/gem_updater'
+  s.homepage    = REPOSITORY_URI
   s.license     = 'MIT'
+  s.metadata    = {
+    'homepage_uri' => REPOSITORY_URI,
+    'changelog_uri' => "#{REPOSITORY_URI}/blob/master/CHANGELOG.md",
+    'source_code_uri' => REPOSITORY_URI,
+    'rubygems_mfa_required' => 'true'
+  }
 
   s.required_ruby_version = '>= 3.0.0'
 
@@ -29,5 +37,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'webmock', '~> 3.18'
 
   s.executables << 'gem_update'
-  s.metadata['rubygems_mfa_required'] = 'true'
 end
