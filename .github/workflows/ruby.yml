@@ -17,9 +17,9 @@ jobs:
     - name: Install dependencies
       run: bundle install
     - name: Run tests
-      run: bundle exec rspec
+      run: make tests
     - name: Run linter
-      run: bundle exec rubocop
+      run: make lint
 
     - name: Report coverage
       uses: codacy/codacy-coverage-reporter-action@v1
