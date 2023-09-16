@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Development tools:
+* adds `.ruby-version``
+
 # v6.1.0 (September 15, 2023)
 
 Adds:
