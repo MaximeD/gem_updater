@@ -7,6 +7,9 @@ Changed:
 Deprecated:
 * [rails-assets](https://rails-assets.org/#/) support
 
+Updates:
+* gems
+
 Development tools:
 * add `.ruby-version``
 * add `Makefile`
