@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v7.0.0 (September 30, 2023)
+
 Changed:
 * rely on rubygems metadata to get the changelog uri.
   It means that for any gem not hosted on rubygems, the changelog won’t be found.
