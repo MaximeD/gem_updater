@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module GemUpdater
-  VERSION = '6.1.0'
+  VERSION = '7.0.0'
 end

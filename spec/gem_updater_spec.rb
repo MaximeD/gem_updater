@@ -3,17 +3,14 @@
 require 'spec_helper'
 
 describe GemUpdater::Updater do
+  let(:gem_source) { instance_double(Bundler::Source::Rubygems) }
+  let(:ruby_gems_fetcher) { instance_double(GemUpdater::RubyGemsFetcher) }
+  let(:changelog_parser) { instance_double(GemUpdater::ChangelogParser) }
+
   let(:gemfile) do
     instance_double(
-      GemUpdater::GemFile,
-      changes: { fake_gem: { versions: { old: '0.1', new: '0.2' } } }
-    )
-  end
-
-  let(:source_page_parser) do
-    instance_double(
-      GemUpdater::SourcePageParser,
-      changelog: 'fake_gem_changelog_url'
+      GemUpdater::Gemfile,
+      changes: { fake_gem: { versions: { old: '0.1', new: '0.2' }, source: gem_source } }
     )
   end
 
@@ -31,15 +28,18 @@ describe GemUpdater::Updater do
   end
 
   before do
-    allow(GemUpdater::GemFile).to receive(:new) { gemfile }
-    allow(GemUpdater::SourcePageParser).to receive(:new) { source_page_parser }
+    allow(GemUpdater::Gemfile).to receive(:new) { gemfile }
+    allow(gem_source).to receive(:name) { 'rubygems repository https://rubygems.org/' }
+    allow(GemUpdater::RubyGemsFetcher).to receive(:new) { ruby_gems_fetcher }
+    allow(GemUpdater::ChangelogParser).to receive(:new) { changelog_parser }
+    allow(ruby_gems_fetcher).to receive(:changelog_uri) { 'https://github.com/example/fake/changelog.md' }
+    allow(changelog_parser).to receive(:changelog) { 'https://github.com/example/fake/changelog.md#1.1' }
   end
 
   describe '#update' do
     before do
       allow(gemfile).to receive(:update!)
       allow(gemfile).to receive(:compute_changes)
-      allow(subject).to receive(:find_source) { 'fake_gem_changelog_url' }
       subject.update!([])
     end
 
@@ -51,10 +51,10 @@ describe GemUpdater::Updater do
       expect(gemfile).to have_received(:compute_changes)
     end
 
-    it 'gets changelogs' do
+    it 'fills changelogs' do
       expect(
         gemfile.changes[:fake_gem][:changelog]
-      ).to eq 'fake_gem_changelog_url'
+      ).to eq 'https://github.com/example/fake/changelog.md#1.1'
     end
   end
 
@@ -87,36 +87,6 @@ describe GemUpdater::Updater do
         "* fake_gem2 0.4 → 0.4.2\n[changelog](fake_gem_2_url)\n\n"
       ].each do |message|
         expect(subject.format_diff).to include message
-      end
-    end
-  end
-
-  describe '#find_source' do
-    context 'when it is Bundler::Source::Rubygems' do
-      let(:ruby_gems_fetcher) { double(source_uri: 'fake_gem_url') }
-
-      before do
-        allow(ruby_gems_fetcher).to receive(:source_uri)
-        allow(GemUpdater::RubyGemsFetcher).to receive(:new) { ruby_gems_fetcher }
-        subject.send(:find_source, 'fake_gem', Bundler::Source::Rubygems.new)
-      end
-
-      it 'delegates to RubyGems fetcher' do
-        expect(ruby_gems_fetcher).to have_received(:source_uri)
-      end
-    end
-
-    context 'when it is Bundler::Source::Git' do
-      let(:git_source) { double(uri: 'git://fakeurl.com/gem.git') }
-
-      before do
-        allow(Bundler::Source::Git).to receive(:===) { true }
-      end
-
-      it 'returns git url converted to http url' do
-        expect(
-          subject.send(:find_source, 'fake_gem', git_source)
-        ).to eq 'http://fakeurl.com/gem'
       end
     end
   end
