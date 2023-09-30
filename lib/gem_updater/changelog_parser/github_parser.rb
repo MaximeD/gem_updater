@@ -37,7 +37,7 @@ module GemUpdater
       # @param doc [Nokogiri::HTML4::Document] document
       # @return [String, nil] anchor's href
       def find_anchor(doc)
-        anchor = doc.xpath('//a[contains(@class, "anchor")]').find do |element|
+        anchor = doc.xpath('//a[contains(@class, "heading-link")]').find do |element|
           element.attr('href').match(version.delete('.'))
         end
         return unless anchor

@@ -19,8 +19,8 @@ RSpec.describe GemUpdater do
       * regexp_parser 2.6.1 → 2.8.1
       [changelog](https://github.com/ammar/regexp_parser/blob/master/CHANGELOG.md#281---2023-06-10---janosch-müller)
 
-      * rubocop 1.38.0 → 1.56.3
-      [changelog](https://github.com/rubocop/rubocop/blob/master/CHANGELOG.md#1563-2023-09-11)
+      * rubocop 1.38.0 → 1.56.4
+      [changelog](https://github.com/rubocop/rubocop/blob/master/CHANGELOG.md)
 
     OUTPUT
   end

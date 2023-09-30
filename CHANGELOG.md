@@ -1,7 +1,7 @@
 # master (unreleased)
 
 Changed:
-* know rely on rubygems metadata to get the changelog uri.
+* rely on rubygems metadata to get the changelog uri.
   It means that for any gem not hosted on rubygems, the changelog won’t be found.
 
 Deprecated:
