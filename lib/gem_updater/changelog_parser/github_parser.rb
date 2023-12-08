@@ -7,6 +7,8 @@ module GemUpdater
   class ChangelogParser
     # ChangelogParser is responsible for parsing a changelog hosted on github.
     class GithubParser
+      ANCHOR_XPATH = '//a[contains(@class, "anchor")]'
+
       attr_reader :uri, :version
 
       # @param uri [String] changelog uri
@@ -37,7 +39,7 @@ module GemUpdater
       # @param doc [Nokogiri::HTML4::Document] document
       # @return [String, nil] anchor's href
       def find_anchor(doc)
-        anchor = doc.xpath('//a[contains(@class, "heading-link")]').find do |element|
+        anchor = doc.xpath(ANCHOR_XPATH).find do |element|
           element.attr('href').match(version.delete('.'))
         end
         return unless anchor
