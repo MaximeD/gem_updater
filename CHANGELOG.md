@@ -3,6 +3,9 @@
 Fixes:
 * GitHub changelog link anchors no longer found
 
+Updates:
+* gems
+
 # v7.0.0 (September 30, 2023)
 
 Changed:
