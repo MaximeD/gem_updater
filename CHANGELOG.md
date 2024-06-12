@@ -3,6 +3,9 @@
 Enhancement:
 * add support for ruby 3.3
 
+Updates:
+* gems
+
 # v7.1.0 (December 08, 2023)
 
 Fixes:
