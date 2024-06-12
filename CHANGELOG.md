@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v7.2.0 (June 12, 2024)
+
 Enhancement:
 * add support for ruby 3.3
 
