@@ -50,10 +50,8 @@ module GemUpdater
 
     # For each gem, retrieve its changelog
     def fill_changelogs
-      [].tap do |threads|
-        gemfile.changes.each do |gem_changes, details|
-          threads << Thread.new { retrieve_changelog(gem_changes, details) }
-        end
+      gemfile.changes.map do |gem_changes, details|
+        Thread.new { retrieve_changelog(gem_changes, details) }
       end.each(&:join)
     end
 
