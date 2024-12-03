@@ -21,7 +21,7 @@ GEM
     diff-lcs (1.5.1)
     docile (1.4.1)
     hashdiff (1.1.2)
-    json (2.8.2)
+    json (2.9.0)
     language_server-protocol (3.17.0.3)
     method_source (1.1.0)
     mini_portile2 (2.8.8)
