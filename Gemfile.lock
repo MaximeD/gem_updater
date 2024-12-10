@@ -25,7 +25,7 @@ GEM
     language_server-protocol (3.17.0.3)
     method_source (1.1.0)
     mini_portile2 (2.8.8)
-    nokogiri (1.16.8)
+    nokogiri (1.17.1)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parallel (1.26.3)
