@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Enhancement:
+* add support for ruby 3.4
+
 Deprecated:
 * ruby 3.1 is the minimum required ruby version
 
