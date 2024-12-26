@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Deprecated:
+* ruby 3.1 is the minimum required ruby version
+
 Updates:
 * gems
 
