@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = '>= 3.0.0'
+  s.required_ruby_version = '>= 3.1'
 
   s.add_dependency 'bundler',  '< 3'
   s.add_dependency 'json',     '~> 2.6'
