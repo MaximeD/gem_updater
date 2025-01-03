@@ -1,5 +1,8 @@
 # master (unreleased)
 
+Updates:
+* gems
+
 # v7.4.0 (December 26, 2024)
 
 Enhancement:
