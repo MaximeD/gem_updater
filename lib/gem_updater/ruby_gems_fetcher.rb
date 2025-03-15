@@ -8,6 +8,8 @@ module GemUpdater
   # RubyGemsFetcher is a wrapper around rubygems API.
   class RubyGemsFetcher
     HTTP_TOO_MANY_REQUESTS = '429'
+    SLEEP_DURATION = 1 # second
+    MAX_RETRIES = 2
 
     attr_reader :gem_name
 
@@ -46,7 +48,7 @@ module GemUpdater
       # We may trigger too many requests, in which case give rubygems a break
       if e.io.status.include?(HTTP_TOO_MANY_REQUESTS)
         tries += 1
-        sleep 1 && retry if tries < 2
+        sleep SLEEP_DURATION && retry if tries < MAX_RETRIES
       end
     end
   end
