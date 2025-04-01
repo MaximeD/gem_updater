@@ -26,7 +26,7 @@ GEM
     lint_roller (1.1.0)
     method_source (1.1.0)
     mini_portile2 (2.8.8)
-    nokogiri (1.18.4)
+    nokogiri (1.18.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parallel (1.26.3)
