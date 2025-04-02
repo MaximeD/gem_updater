@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v7.5.0 (April 2, 2025)
+
 Updates:
 * gems
 
