@@ -40,7 +40,7 @@ module GemUpdater
       # @return [String, nil] anchor's href
       def find_anchor(doc)
         anchor = doc.xpath(ANCHOR_XPATH).find do |element|
-          element.attr('href').match(version.delete('.'))
+          element.attr('aria-label').match(version)
         end
         return unless anchor
 
