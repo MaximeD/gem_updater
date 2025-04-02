@@ -3,6 +3,9 @@
 Updates:
 * gems
 
+Fix:
+* finding changelog's anchor
+
 # v7.4.0 (December 26, 2024)
 
 Enhancement:
