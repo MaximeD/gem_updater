@@ -5,7 +5,7 @@ Updates:
 * gems
 
 Development tools:
-* bump to ruby 3.4.3
+* bump to ruby 3.4.4
 
 # v7.5.0 (April 2, 2025)
 
