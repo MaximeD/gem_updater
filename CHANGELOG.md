@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v7.6.0 (May 16, 2025)
+
 Fix:
 
 * finding changelog's anchor
@@ -9,6 +11,7 @@ Updates:
 * gems
 
 Development tools:
+
 * bump to ruby 3.4.4
 
 # v7.5.0 (April 2, 2025)
