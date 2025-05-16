@@ -1,5 +1,9 @@
 # master (unreleased)
 
+Fix:
+
+* finding changelog's anchor
+
 Updates:
 
 * gems

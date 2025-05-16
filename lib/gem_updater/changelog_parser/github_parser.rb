@@ -7,7 +7,8 @@ module GemUpdater
   class ChangelogParser
     # ChangelogParser is responsible for parsing a changelog hosted on github.
     class GithubParser
-      ANCHOR_XPATH = '//a[contains(@class, "anchor")]'
+      REACT_DATA_XPATH = '//script[@data-target="react-app.embeddedData"]'
+      REACT_PAYLOAD_TOC_PATH = %w[payload blob headerInfo toc].freeze
 
       attr_reader :uri, :version
 
@@ -39,12 +40,16 @@ module GemUpdater
       # @param doc [Nokogiri::HTML4::Document] document
       # @return [String, nil] anchor's href
       def find_anchor(doc)
-        anchor = doc.xpath(ANCHOR_XPATH).find do |element|
-          element.attr('aria-label').match(version)
-        end
+        react_data = doc.at_xpath(REACT_DATA_XPATH)
+        return unless react_data
+
+        react_content = JSON.parse(react_data.text)
+        anchor = react_content
+                 .dig(*REACT_PAYLOAD_TOC_PATH).to_a
+                 .find { |item| item['text'].match(version) }&.[]('anchor')
         return unless anchor
 
-        anchor.attr('href').gsub(%(\\"), '')
+        "##{anchor}"
       end
     end
   end
