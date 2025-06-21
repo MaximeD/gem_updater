@@ -4,6 +4,7 @@ on: push
 
 jobs:
   test:
+    name: 🧪 Test (ruby ${{ matrix.ruby }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,11 +20,22 @@ jobs:
       # Exclude acceptance specs as github action fails due to:
       # It is a security vulnerability to allow your home directory to be world-writable, and bundler cannot continue.
       run: bundle exec rspec --exclude-pattern "spec/acceptance/**/*_spec.rb"
-    - name: Run linter
-      run: make lint
 
     - name: Report coverage
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         coverage-reports: coverage/coverage.xml
+
+  lint:
+    name: 🧹 Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Ruby 3.4
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+        bundler-cache: true # 'bundle install' and cache gems
+    - name: Lint
+      run: make lint
