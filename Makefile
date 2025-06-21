@@ -6,3 +6,7 @@ lint_fix:
 
 tests:
 	bundle exec rspec
+
+# Prepare for new release
+release:
+	./release.rb
