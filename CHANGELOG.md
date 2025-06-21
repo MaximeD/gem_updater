@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v8.0.0 (June 21, 2025)
+
 Deprecated:
 
 * ruby 3.2 is the minimum required ruby version
