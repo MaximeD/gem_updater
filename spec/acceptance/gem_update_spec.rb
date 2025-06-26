@@ -4,6 +4,14 @@ require 'spec_helper'
 
 RSpec.describe GemUpdater do
   let(:updater) { GemUpdater::Updater.new }
+  let(:acceptance_dir) { File.expand_path('spec/acceptance', "#{__dir__}/../..") }
+  let(:initial_lock_content) { File.read(File.join(acceptance_dir, 'Gemfile.lock.initial')) }
+  let(:updated_lock_content) { File.read(File.join(acceptance_dir, 'Gemfile.lock.updated')) }
+
+  before do
+    setup_test_files
+    mock_gemfile_operations
+  end
 
   after { `git restore spec/acceptance/Gemfile.lock` }
 
@@ -38,7 +46,7 @@ RSpec.describe GemUpdater do
       [changelog](https://github.com/ammar/regexp_parser/blob/master/CHANGELOG.md#2100---2024-12-25---janosch-müller)
 
       * rubocop 1.38.0 → 1.75.6
-      [changelog](https://github.com/rubocop/rubocop/releases/tag/v1.75.6)
+      [changelog](https://github.com/rubocop/rubocop/releases/tag/v1.77.0)
 
       * rubocop-ast 1.29.0 → 1.44.1
       [changelog](https://github.com/rubocop/rubocop-ast/blob/master/CHANGELOG.md#1441-2025-04-11)
@@ -49,9 +57,45 @@ RSpec.describe GemUpdater do
     OUTPUT
   end
 
-  it 'outputs changelogs',
-     vcr: { cassette_name: 'acceptance', record: :new_episodes } do
-    updater.update!(['--gemfile=spec/acceptance/Gemfile'])
+  it 'outputs changelogs', vcr: { cassette_name: 'acceptance' } do
+    Dir.chdir('spec/acceptance') do
+      updater.update!(['--gemfile=Gemfile'])
+    end
     expect { updater.output_diff }.to output(diff).to_stdout
+  end
+
+  private
+
+  def setup_test_files
+    FileUtils.cp('spec/acceptance/Gemfile.initial', 'spec/acceptance/Gemfile')
+    File.write('spec/acceptance/Gemfile.lock', initial_lock_content)
+  end
+
+  def mock_gemfile_operations
+    allow(GemUpdater::Gemfile).to receive(:new).and_wrap_original do |method|
+      gemfile_instance = method.call
+
+      allow(gemfile_instance).to receive(:update!) { Bundler.ui.warn 'Updating gems...' }
+      allow(gemfile_instance).to receive(:spec_sets_diff!) {
+        simulate_bundle_update(gemfile_instance)
+      }
+
+      gemfile_instance
+    end
+  end
+
+  def parse_lock_file(filename)
+    lock_content = File.read(filename)
+    definition = Bundler::LockfileParser.new(lock_content)
+    definition.specs
+  end
+
+  def simulate_bundle_update(gemfile_instance)
+    old_specs = parse_lock_file('Gemfile.lock')
+    File.write('Gemfile.lock', updated_lock_content)
+    new_specs = parse_lock_file('Gemfile.lock')
+
+    gemfile_instance.instance_variable_set(:@old_spec_set, old_specs)
+    gemfile_instance.instance_variable_set(:@new_spec_set, new_specs)
   end
 end

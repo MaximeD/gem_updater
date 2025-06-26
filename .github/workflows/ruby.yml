@@ -1,4 +1,4 @@
-name: Ruby
+name: 💎 Ruby
 
 on: push
 
@@ -17,9 +17,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true # 'bundle install' and cache gems
     - name: Run tests
-      # Exclude acceptance specs as github action fails due to:
-      # It is a security vulnerability to allow your home directory to be world-writable, and bundler cannot continue.
-      run: bundle exec rspec --exclude-pattern "spec/acceptance/**/*_spec.rb"
+      run: bundle exec rspec --format progress
 
     - name: Report coverage
       uses: codacy/codacy-coverage-reporter-action@v1
