@@ -6,7 +6,7 @@ Fix:
 
 Development tools:
 
-* bump to ruby 3.4.5
+* bump to ruby 3.4.6
 
 # v8.0.0 (June 21, 2025)
 
