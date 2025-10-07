@@ -46,7 +46,7 @@ changelog_file = 'CHANGELOG.md'
 changelog_content = File.read(changelog_file)
 
 # Regex to find the master (unreleased) section and its content
-master_section_regex = /# master \(unreleased\)\n+((?:.|\n)*?)(?=^# |\z)/m
+master_section_regex = /# master \(unreleased\)\n+(.*?)(?=^# |\z)/m
 
 if changelog_content =~ master_section_regex
   unreleased_content = Regexp.last_match(1).rstrip
