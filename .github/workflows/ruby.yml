@@ -2,6 +2,9 @@ name: 💎 Ruby
 
 on: push
 
+permissions:
+  contents: read
+  
 jobs:
   test:
     name: 🧪 Test (ruby ${{ matrix.ruby }})
