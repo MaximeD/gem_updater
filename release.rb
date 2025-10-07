@@ -15,7 +15,7 @@ current_version = nil
 
 File.open(version_file, 'r') do |file|
   file.each_line do |line|
-    m = line.match(/^\s*VERSION\s*=\s*['"]([^'\"]+)['\"]/)
+    m = line.match(/^\s*VERSION\s*=\s*['"]([^'"]+)['"]/)
     if m
       current_version = m[1]
       break
@@ -35,7 +35,7 @@ end
 # Update version file
 version_content = File.read(version_file)
 updated_version_content = version_content.gsub(
-  /^\s*VERSION\s*=\s*['"][^'\"]+['\"]/,
+  /^\s*VERSION\s*=\s*['"][^'"]+['"]/,
   "  VERSION = '#{new_version}'"
 )
 
