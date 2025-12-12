@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 3.2'
 
-  s.add_dependency 'bundler',  '< 3'
+  s.add_dependency 'bundler',  '~> 4.0'
   s.add_dependency 'json',     '~> 2.6'
   s.add_dependency 'nokogiri', '~> 1.13'
 
