@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    gem_updater (8.0.0)
-      bundler (< 3)
+    gem_updater (8.1.0)
+      bundler (~> 4.0)
       json (~> 2.6)
       nokogiri (~> 1.13)
 
@@ -110,4 +110,4 @@ DEPENDENCIES
   webmock (~> 3.18)
 
 BUNDLED WITH
-   2.4.19
+  4.0.1

@@ -32,13 +32,26 @@ describe GemUpdater::Gemfile do
   end
 
   describe '#update!' do
-    before do
-      allow(subject).to receive(:compute_changes)
-      subject.update!([])
+    context 'when no gems are specified' do
+      before do
+        allow(subject).to receive(:compute_changes)
+        subject.update!([])
+      end
+
+      it 'launches bundle update with --all flag' do
+        expect(Bundler::CLI).to have_received(:start).with(%w[update --all])
+      end
     end
 
-    it 'launches bundle update' do
-      expect(Bundler::CLI).to have_received(:start).with(['update'])
+    context 'when specific gems are specified' do
+      before do
+        allow(subject).to receive(:compute_changes)
+        subject.update!(%w[rails nokogiri])
+      end
+
+      it 'launches bundle update without --all flag' do
+        expect(Bundler::CLI).to have_received(:start).with(%w[update rails nokogiri])
+      end
     end
   end
 
@@ -89,14 +102,12 @@ describe GemUpdater::Gemfile do
 
   describe '#reinitialize_spec_set!' do
     before do
-      allow(Bundler).to receive(:remove_instance_variable)
+      allow(Bundler).to receive(:reset!)
       subject.send(:reinitialize_spec_set!)
     end
 
     it 'reinitializes locked gems' do
-      expect(Bundler).to have_received(
-        :remove_instance_variable
-      ).with(:@locked_gems)
+      expect(Bundler).to have_received(:reset!)
     end
   end
 end

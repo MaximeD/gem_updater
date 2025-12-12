@@ -16,7 +16,9 @@ module GemUpdater
     # Run `bundle update` to update gems.
     def update!(gems)
       Bundler.ui.warn 'Updating gems...'
-      Bundler::CLI.start(['update'] + gems)
+      args = ['update']
+      args << '--all' if gems.empty?
+      Bundler::CLI.start(args + gems)
     end
 
     # Compute the diffs between two `Gemfile.lock`.
@@ -49,12 +51,9 @@ module GemUpdater
       Bundler.locked_gems.specs
     end
 
-    # Calling `Bundler.locked_gems` before or after a `bundler update`
-    # will return the same result.
-    # Use a hacky way to tell bundle we want to parse the new `Gemfile.lock`
+    # Ensure Bundler reloads the updated Gemfile.lock after an update.
     def reinitialize_spec_set!
-      Bundler.remove_instance_variable(:@locked_gems)
-      Bundler.remove_instance_variable(:@definition)
+      Bundler.reset!
     end
 
     # Add changes to between two versions of a gem
