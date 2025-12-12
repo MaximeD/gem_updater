@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v8.1.0 (December 12. 2025)
+
 Updates:
 
 * gems
