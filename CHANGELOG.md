@@ -3,6 +3,7 @@
 Development tools:
 
 * bump to ruby 3.4.8
+* update gems
 
 # v8.1.0 (December 12. 2025)
 
