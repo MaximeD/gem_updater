@@ -1,6 +1,6 @@
 [![Version](https://img.shields.io/gem/v/gem_updater.svg?style=flat)](https://rubygems.org/gems/gem_updater)
 [![Build Status](https://github.com/MaximeD/gem_updater/actions/workflows/ruby.yml/badge.svg)](https://github.com/MaximeD/gem_updater/actions/workflows/ruby.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/74dc27b2f9635ecb851a/maintainability)](https://codeclimate.com/github/MaximeD/gem_updater/maintainability)
+[![Maintainability](https://qlty.sh/gh/MaximeD/projects/gem_updater/maintainability.svg)](https://qlty.sh/gh/MaximeD/projects/gem_updater)
 [![Codacy Quality Badge](https://app.codacy.com/project/badge/Grade/6c95225b2b7249b7a723e847094a2c21)](https://www.codacy.com/gh/MaximeD/gem_updater/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaximeD/gem_updater&amp;utm_campaign=Badge_Grade)
 [![Codacy Coverage Badge](https://app.codacy.com/project/badge/Coverage/6c95225b2b7249b7a723e847094a2c21)](https://www.codacy.com/gh/MaximeD/gem_updater/dashboard?utm_source=github.com&utm_medium=referral&utm_content=MaximeD/gem_updater&utm_campaign=Badge_Coverage)
 [![Inline docs ](http://inch-ci.org/github/MaximeD/gem_updater.svg?style=flat)](http://inch-ci.org/github/MaximeD/gem_updater)
