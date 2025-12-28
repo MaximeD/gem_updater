@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',   '~> 3.12'
   s.add_development_dependency 'rubocop', '~> 1.41'
   s.add_development_dependency 'rubocop-performance', '~> 1.15'
-  s.add_development_dependency 'vcr', '~> 6.1'
+  s.add_development_dependency 'vcr', '~> 6.4'
   s.add_development_dependency 'webmock', '~> 3.18'
 
   s.executables << 'gem_update'
