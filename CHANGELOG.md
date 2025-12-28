@@ -1,11 +1,13 @@
 # master (unreleased)
 
+# v8.2.0 (December 28, 2025)
+
 Development tools:
 
 * bump to ruby 4.0.0
 * update gems
 
-# v8.1.0 (December 12. 2025)
+# v8.1.0 (December 12, 2025)
 
 Updates:
 
