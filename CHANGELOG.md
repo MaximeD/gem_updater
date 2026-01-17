@@ -1,5 +1,9 @@
 # master (unreleased)
 
+Development tools:
+
+* bump to ruby 4.0.1
+
 # v8.2.0 (December 28, 2025)
 
 Development tools:
