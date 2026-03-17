@@ -1,5 +1,9 @@
 # master (unreleased)
 
+Updates:
+
+* gems
+
 Development tools:
 
 * bump to ruby 4.0.2
