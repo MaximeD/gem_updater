@@ -8,7 +8,7 @@ module GemUpdater
     # ChangelogParser is responsible for parsing a changelog hosted on github.
     class GithubParser
       REACT_DATA_XPATH = '//script[@data-target="react-app.embeddedData"]'
-      REACT_PAYLOAD_TOC_PATH = %w[payload blob headerInfo toc].freeze
+      REACT_PAYLOAD_TOC_PATH = %w[payload codeViewBlobRoute headerInfo toc].freeze
 
       attr_reader :uri, :version
 
