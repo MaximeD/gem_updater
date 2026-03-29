@@ -3,7 +3,7 @@ plugins:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.3
 
 Gemspec/DevelopmentDependencies:
   Enabled: false
@@ -12,5 +12,4 @@ Layout/LineLength:
   Max: 100
 
 Metrics/BlockLength:
-  AllowedMethods: ['describe', 'context']
-
+  AllowedMethods: ["describe", "context"]
