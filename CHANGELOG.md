@@ -1,5 +1,9 @@
 # master (unreleased)
 
+Refactor:
+
+* replace GitHub HTML scraping with raw content parsing
+
 Deprecated:
 
 * ruby 3.3 is the minimum required ruby version

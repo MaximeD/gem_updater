@@ -17,8 +17,8 @@ RSpec.describe GemUpdater do
 
   let(:diff) do
     <<~OUTPUT
-      * activesupport 7.0.0 → 8.1.2.1
-      [changelog](https://github.com/rails/rails/blob/v8.1.2.1/activesupport/CHANGELOG.md#rails-8121-march-23-2026)
+      * activesupport 7.0.0 → 8.1.3
+      [changelog](https://github.com/rails/rails/blob/v8.1.3/activesupport/CHANGELOG.md#rails-813-march-24-2026)
 
       * ast 2.4.2 → 2.4.3
 
@@ -36,8 +36,8 @@ RSpec.describe GemUpdater do
 
       * parallel 1.23.0 → 1.27.0
 
-      * parser 3.2.2.3 → 3.3.10.2
-      [changelog](https://github.com/whitequark/parser/blob/v3.3.10.2/CHANGELOG.md)
+      * parser 3.2.2.3 → 3.3.11.1
+      [changelog](https://github.com/whitequark/parser/blob/v3.3.11.1/CHANGELOG.md)
 
       * racc 1.7.1 → 1.8.1
       [changelog](https://github.com/ruby/racc/releases)
