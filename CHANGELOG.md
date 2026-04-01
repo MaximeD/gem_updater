@@ -1,5 +1,7 @@
 # master (unreleased)
 
+# v9.0.0 (April 01, 2026)
+
 Refactor:
 
 * replace GitHub HTML scraping with raw content parsing
