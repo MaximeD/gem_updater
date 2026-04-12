@@ -1,0 +1,18 @@
+matrix:
+  RUBY_VERSION:
+    - 3.3
+    - 3.4
+    - 4.0
+
+pipeline:
+  test:
+    image: ruby:${RUBY_VERSION}
+    commands:
+      - bundle install
+      - bundle exec rspec --format progress
+
+  lint:
+    image: ruby:4.0
+    commands:
+      - bundle install
+      - make lint
