@@ -21,7 +21,7 @@ GEM
     docile (1.4.1)
     hashdiff (1.2.1)
     io-console (0.8.2)
-    json (2.19.3)
+    json (2.19.7)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     method_source (1.1.0)
