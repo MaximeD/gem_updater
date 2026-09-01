@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 require 'gem_updater'
-require 'simplecov'
-require 'simplecov-cobertura'
-
-SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
-
-SimpleCov.start
 
 Dir["#{File.expand_path('support', __dir__)}/*.rb"].each { |file| require file }
 

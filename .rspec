@@ -1,3 +1,4 @@
 --color
+--require simplecov_setup
 --require spec_helper
 --format documentation
