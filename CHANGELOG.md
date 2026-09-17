@@ -1,5 +1,9 @@
 # master (unreleased)
 
+Enhancement:
+
+* support multiplatforms in the lockfile
+
 Updates:
 
 * gems
