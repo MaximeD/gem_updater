@@ -6,7 +6,7 @@ Updates:
 
 Development tools:
 
-* bump to ruby 4.0.6
+* bump to ruby 4.0.7
 
 # v9.0.0 (April 01, 2026)
 
