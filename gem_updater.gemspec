@@ -25,15 +25,15 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 3.3'
 
   s.add_dependency 'bundler',  '~> 4.0'
-  s.add_dependency 'json',     '~> 2.6'
-  s.add_dependency 'nokogiri', '~> 1.13'
+  s.add_dependency 'json',     '~> 3.1'
+  s.add_dependency 'nokogiri', '~> 1.19'
 
-  s.add_development_dependency 'pry', '~> 0.14'
-  s.add_development_dependency 'rspec',   '~> 3.12'
-  s.add_development_dependency 'rubocop', '~> 1.41'
-  s.add_development_dependency 'rubocop-performance', '~> 1.15'
+  s.add_development_dependency 'pry', '~> 0.16'
+  s.add_development_dependency 'rspec',   '~> 3.13'
+  s.add_development_dependency 'rubocop', '~> 1.92'
+  s.add_development_dependency 'rubocop-performance', '~> 1.27'
   s.add_development_dependency 'vcr', '~> 6.4'
-  s.add_development_dependency 'webmock', '~> 3.18'
+  s.add_development_dependency 'webmock', '~> 3.34'
 
   s.executables << 'gem_update'
 end
